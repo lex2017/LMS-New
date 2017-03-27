@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Lexicon LMS</title>
+    @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <link href="~/Content/Site.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="../../images/logo-lexicon.gif" />
+                @*@Html.ActionLink("Lexicon", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+           
+               
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Hem", "Index", "Home")</li>*@
+                @if (User.IsInRole("Teacher"))
+                {
+                    <li>@Html.ActionLink("Kurser", "Index", "Courses")</li>
+                    <li>@Html.ActionLink("Moduler", "Index", "Modules")</li>
+                    <li>@Html.ActionLink("Student", "Index", "ManageStudents")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Kurs", "Index", "Students")</li>
+                    <li>@Html.ActionLink("Kursdeltagare", "Studentlist", "Students")</li>
+                    <li>@Html.ActionLink("Kursmoduler", "Studentmodules", "Students")</li>
+                }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="modal-footer">
+            <p>&copy; @DateTime.Now.Year - LEXICON AB</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
