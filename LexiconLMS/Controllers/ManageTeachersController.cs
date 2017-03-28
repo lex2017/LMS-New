@@ -15,11 +15,18 @@ namespace LexiconLMS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Students
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
 
             var role = db.Roles.SingleOrDefault(m => m.Name == "Teacher").Id;
             var students = db.Users.Where(u => u.Roles.Any(r => r.RoleId == role));
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.FirstName.Contains(searchString)
+                                              || s.LastName.Contains(searchString) || s.UserName.Contains(searchString));
+
+                return View(students.ToList());
+            }
             return View(students.ToList());
         }
 
