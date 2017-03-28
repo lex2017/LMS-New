@@ -71,7 +71,7 @@ namespace LexiconLMS.Models
 
         [Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [StringLength(100, ErrorMessage = "{0} måste ineehålla minst {2} tecken.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} måste innehålla minst {2} tecken.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Lösenord")]
         public string Password { get; set; }
@@ -79,7 +79,7 @@ namespace LexiconLMS.Models
         [DataType(DataType.Password)]
         [Display(Name = "Bekräfta Lösenord")]
         //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        [Compare("Password", ErrorMessage = "Lösenord och konfirmerat lösenord matchar inte.")]
+        [Compare("Password", ErrorMessage = "Lösenord och bekräftat lösenord är olika.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
@@ -104,7 +104,7 @@ namespace LexiconLMS.Models
         [DataType(DataType.Password)]
         [Display(Name = "Bekräfta Lösenord")]
         //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        [Compare("Password", ErrorMessage = "Lösenord och konfirmerat lösenord är olika.")]
+        [Compare("Password", ErrorMessage = "Lösenord och bekräftat lösenord är olika.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
