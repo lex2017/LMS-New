@@ -1,0 +1,47 @@
+﻿﻿@model LexiconLMS.Models.Activity
+@using LexiconLMS.Models;
+@{
+    ViewBag.Title = "Detaljer";
+}
+<h2>@ViewBag.Title</h2>
+<div>
+    <h4>Activitet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Module.Name)
+        </dt>
+        <dd>
+
+            @Html.DisplayFor(model => model.Module.Name)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Ändra", "Edit", new { id = Model.ActivityId }) |
+    @Html.ActionLink("Tillbaka till lista", "Index")
+</p>

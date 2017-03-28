@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -177,16 +178,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703250851438_Addfirst.cs" />
-    <Compile Include="Migrations\201703250851438_Addfirst.Designer.cs">
-      <DependentUpon>201703250851438_Addfirst.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703270908500_Add4.cs" />
-    <Compile Include="Migrations\201703270908500_Add4.Designer.cs">
-      <DependentUpon>201703270908500_Add4.cs</DependentUpon>
+    <Compile Include="Migrations\201703280914217_AddFirst.cs" />
+    <Compile Include="Migrations\201703280914217_AddFirst.Designer.cs">
+      <DependentUpon>201703280914217_AddFirst.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -273,6 +271,11 @@
     <Content Include="Views\Students\Studentlist.cshtml" />
     <Content Include="Views\Students\Studentmodules.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Activities\Create.cshtml" />
+    <Content Include="Views\Activities\Delete.cshtml" />
+    <Content Include="Views\Activities\Details.cshtml" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Activities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -286,11 +289,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703250851438_Addfirst.resx">
-      <DependentUpon>201703250851438_Addfirst.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703270908500_Add4.resx">
-      <DependentUpon>201703270908500_Add4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703280914217_AddFirst.resx">
+      <DependentUpon>201703280914217_AddFirst.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

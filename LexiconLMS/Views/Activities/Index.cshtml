@@ -1,14 +1,14 @@
-﻿﻿@model IEnumerable<LexiconLMS.Models.Module>
+﻿﻿@model IEnumerable<LexiconLMS.Models.Activity>
 @using LexiconLMS.Models;
 @{
-    ViewBag.Title = "Moduler";
+    ViewBag.Title = "Aktiviteter";
 }
 <h1>@ViewBag.oneElement   @ViewBag.Title</h1>
 <p>
-    @Html.ActionLink("Lägg till", "Create")
+    @Html.ActionLink("lägg till", "Create")
 </p>
 <div>
-    @using (Html.BeginForm("Index", "Modules", FormMethod.Get))
+    @using (Html.BeginForm("Index", "Activities", FormMethod.Get))
     {
         <div class="row">
             <div class="col-lg-4">
@@ -37,7 +37,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
-
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ModuleId)
+                </th>*@
             <th></th>
         </tr>
     </thead>
@@ -57,12 +59,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
-
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ModuleId)
+                    </td>*@
                 <td>
-                    @Html.ActionLink("Aktiviteter", "ActivityFilter", "Activities", new { id = item.ModuleID }, null) |
-                    @Html.ActionLink("Ändra", "Edit", new { id = item.ModuleID }) |
-                    @Html.ActionLink("Detaljer", "Details", new { id = item.ModuleID }) |
-                    @Html.ActionLink("Ta bort", "Delete", new { id = item.ModuleID })
+                    @*@Html.ActionLink("Dokuments", "DocumentFilter", "Dokumenter", new { id = item.ActivityId }, null) |*@
+                    @Html.ActionLink("Ändra", "Edit", new { id = item.ActivityId }) |
+                    @Html.ActionLink("Detaljer", "Details", new { id = item.ActivityId }) |
+                    @Html.ActionLink("Ta bort", "Delete", new { id = item.ActivityId })
                 </td>
             </tr>
         </tbody>

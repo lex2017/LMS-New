@@ -30,7 +30,7 @@ namespace LexiconLMS.Models
         [Display(Name = "Kurs")]
         public int? CourseId { get; set; }
 
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
 
     }
 

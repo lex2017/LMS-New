@@ -3,24 +3,24 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Addfirst : DbMigration
+    public partial class AddFirst : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Courses",
+                "dbo.Activities",
                 c => new
                     {
-                        CourseID = c.Int(nullable: false, identity: true),
+                        ActivityId = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
-                        Description = c.String(),
+                        Description = c.String(nullable: false),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
-                        Module_ModuleID = c.Int(),
+                        ModuleId = c.Int(),
                     })
-                .PrimaryKey(t => t.CourseID)
-                .ForeignKey("dbo.Modules", t => t.Module_ModuleID)
-                .Index(t => t.Module_ModuleID);
+                .PrimaryKey(t => t.ActivityId)
+                .ForeignKey("dbo.Modules", t => t.ModuleId)
+                .Index(t => t.ModuleId);
             
             CreateTable(
                 "dbo.Modules",
@@ -32,14 +32,22 @@ namespace LexiconLMS.Migrations
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         CourseId = c.Int(),
-                        Course_CourseID = c.Int(),
-                        Course_CourseID1 = c.Int(),
                     })
                 .PrimaryKey(t => t.ModuleID)
-                .ForeignKey("dbo.Courses", t => t.Course_CourseID)
-                .ForeignKey("dbo.Courses", t => t.Course_CourseID1)
-                .Index(t => t.Course_CourseID)
-                .Index(t => t.Course_CourseID1);
+                .ForeignKey("dbo.Courses", t => t.CourseId)
+                .Index(t => t.CourseId);
+            
+            CreateTable(
+                "dbo.Courses",
+                c => new
+                    {
+                        CourseID = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        Description = c.String(),
+                        StartDate = c.DateTime(nullable: false),
+                        EndDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.CourseID);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -123,9 +131,8 @@ namespace LexiconLMS.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUsers", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Modules", "Course_CourseID1", "dbo.Courses");
-            DropForeignKey("dbo.Courses", "Module_ModuleID", "dbo.Modules");
-            DropForeignKey("dbo.Modules", "Course_CourseID", "dbo.Courses");
+            DropForeignKey("dbo.Modules", "CourseId", "dbo.Courses");
+            DropForeignKey("dbo.Activities", "ModuleId", "dbo.Modules");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
@@ -133,16 +140,16 @@ namespace LexiconLMS.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUsers", new[] { "CourseId" });
-            DropIndex("dbo.Modules", new[] { "Course_CourseID1" });
-            DropIndex("dbo.Modules", new[] { "Course_CourseID" });
-            DropIndex("dbo.Courses", new[] { "Module_ModuleID" });
+            DropIndex("dbo.Modules", new[] { "CourseId" });
+            DropIndex("dbo.Activities", new[] { "ModuleId" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Modules");
             DropTable("dbo.Courses");
+            DropTable("dbo.Modules");
+            DropTable("dbo.Activities");
         }
     }
 }
