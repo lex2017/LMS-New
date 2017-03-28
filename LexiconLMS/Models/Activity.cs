@@ -11,7 +11,7 @@ namespace LexiconLMS.Models
         public int ActivityId { get; set; }
 
         [Required]
-        [Display(Name = "Aktivitinamn")]
+        [Display(Name = "Aktivitet")]
         public string Name { get; set; }
 
         [Required]

@@ -18,14 +18,15 @@ namespace LexiconLMS.Models
             return userIdentity;
         }
         
-        //Sho
         [Display(Name = "Förnamn")]
         public string FirstName { get; set; }
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
+        [Display(Name = "Namn")]
         public string Fullname { get { return FirstName + " " + LastName; } }
 
         public int? CourseId { get; set; }
+        [Display(Name = "Kurs")]
         public virtual Course Course {get;set;}
     }
 
