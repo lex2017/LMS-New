@@ -7,32 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LexiconLMS.Models;
-using System.Web.Security;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LexiconLMS.Controllers
 {
-    public class ManageStudentsController : Controller
+    public class ManageTeachersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Students
-        public ActionResult Index(string searchString)
+        public ActionResult Index()
         {
-            //var student = from m in db.Users
-            //              select m;
-            var role = db.Roles.SingleOrDefault(m => m.Name == "Student").Id;
+
+            var role = db.Roles.SingleOrDefault(m => m.Name == "Teacher").Id;
             var students = db.Users.Where(u => u.Roles.Any(r => r.RoleId == role));
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                students = students.Where(s => s.FirstName.Contains(searchString)
-                                              || s.LastName.Contains(searchString) || s.UserName.Contains(searchString));
-
-                return View(students.ToList());
-            }
-
             return View(students.ToList());
         }
 
@@ -51,7 +38,7 @@ namespace LexiconLMS.Controllers
             return View(student);
         }
 
- 
+
         // GET: Students/Edit/5
         public ActionResult Edit(string id)
         {
@@ -122,37 +109,5 @@ namespace LexiconLMS.Controllers
             }
             base.Dispose(disposing);
         }
-
-
-
-
-
-        //public ActionResult Create()
-        //{
-        //    ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name");
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "FirstName,LastName,CourseId,Email,PhoneNumber")] ApplicationUser applicationUser)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //        applicationUser.UserName = applicationUser.Email;
-        //        db.Users.Add(applicationUser);
-        //        db.SaveChanges();
-        //        var userStore = new UserStore<ApplicationUser>(db);
-        //        var userManager = new UserManager<ApplicationUser>(userStore);
-        //        userManager.AddToRole(applicationUser.Id, "Student");
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name", applicationUser.CourseId);
-        //    return View(applicationUser);
-        //}
-
-
     }
 }

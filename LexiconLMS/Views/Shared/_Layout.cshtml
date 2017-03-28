@@ -18,27 +18,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="../../images/logo-lexicon.gif" />
-                @*@Html.ActionLink("Lexicon", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                <a href='@Url.Action("Index", "Home")'>
+                    <img src='@Url.Content("~/images/logo-lexicon.gif")' />
+                </a>
             </div>
            
                
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Hem", "Index", "Home")</li>*@
                 @if (User.IsInRole("Teacher"))
                 {
                     <li>@Html.ActionLink("Kurser", "Index", "Courses")</li>
                     <li>@Html.ActionLink("Moduler", "Index", "Modules")</li>
-                    <li>@Html.ActionLink("Student", "Index", "ManageStudents")</li>
-                    <li>@Html.ActionLink("Activiteter", "Index", "Activities")</li>
+                    <li>@Html.ActionLink("Aktiviteter", "Index", "Activities")</li>
+                    <li>@Html.ActionLink("Elever", "Index", "ManageStudents")</li>
+                    <li>@Html.ActionLink("Lärare", "Index", "ManageTeachers")</li>
 
                 }
-                else
+                else if (User.IsInRole("Student"))
                 {
                     <li>@Html.ActionLink("Kurs", "Index", "Students")</li>
-                    <li>@Html.ActionLink("Kursdeltagare", "Studentlist", "Students")</li>
                     <li>@Html.ActionLink("Kursmoduler", "Studentmodules", "Students")</li>
+                    <li>@Html.ActionLink("Kursdeltagare", "Studentlist", "Students")</li>
                 }
                 </ul>
                 @Html.Partial("_LoginPartial")
