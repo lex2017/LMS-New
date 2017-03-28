@@ -12,7 +12,7 @@ namespace LexiconLMS.Models
         public int CourseID { get; set; }
 
         [Required]
-        [Display(Name = "Kursnman")]
+        [Display(Name = "Kurs")]
         public string Name { get; set; }
 
         [Display(Name = "Beskrivning")]
