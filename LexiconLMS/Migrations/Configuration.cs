@@ -126,6 +126,14 @@ namespace LexiconLMS.Migrations
             context.Modules.AddOrUpdate(modules);
             context.SaveChanges();
 
+            var activity = new[]
+            {
+                new Activity { Name="e-learning", Description="grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 },
+                 new Activity { Name="Föreläsning", Description="Agrundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=2 },
+                  new Activity { Name="Övning", Description="Zgrundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 }
+            };
+            context.Activities.AddOrUpdate(activity);
+            context.SaveChanges();
             // Get Users Teacher or Student
             foreach (var user in Users)
             {
