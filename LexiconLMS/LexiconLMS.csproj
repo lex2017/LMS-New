@@ -172,6 +172,7 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageTeachersController.cs" />
     <Compile Include="Controllers\ModulesController.cs" />
     <Compile Include="Controllers\ManageStudentsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
@@ -276,6 +277,11 @@
     <Content Include="Views\Activities\Details.cshtml" />
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
+    <Content Include="Views\ManageTeachers\Create.cshtml" />
+    <Content Include="Views\ManageTeachers\Delete.cshtml" />
+    <Content Include="Views\ManageTeachers\Details.cshtml" />
+    <Content Include="Views\ManageTeachers\Edit.cshtml" />
+    <Content Include="Views\ManageTeachers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
