@@ -15,6 +15,7 @@ namespace LexiconLMS.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         ApplicationDbContext context = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -141,6 +142,9 @@ namespace LexiconLMS.Controllers
         public ActionResult Register()
         {
             ViewBag.Name = new SelectList(context.Roles.Select(u => u.Name).ToList(), "Name");
+            //ViewBag.Courses = new SelectList(context.Courses.Select(u => u.CourseID).ToList(), "Courses");
+            ViewBag.Courses = new SelectList(db.Courses, "CourseId", "Name");
+
             return View();
         }
 
@@ -151,13 +155,14 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,PhoneNumber=model.PhoneNumber,CourseId=model.CourseID };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                   // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -167,12 +172,16 @@ namespace LexiconLMS.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     return RedirectToAction("Index", "Home");
                 }
+                //ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name", user.CourseId);
+                //ViewBag.Courses = new SelectList(context.Courses.Select(u => u.CourseID).ToList(), "Courses");
+                ViewBag.Courses = new SelectList(db.Courses, "CourseId", "Name");
                 ViewBag.Name = new SelectList(context.Roles.Select(u => u.Name).ToList(), "Name");
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            //return View(model);
+            return RedirectToAction("Index", "ManageTeachers", model);
         }
 
         //

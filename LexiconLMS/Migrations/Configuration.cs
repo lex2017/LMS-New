@@ -126,14 +126,26 @@ namespace LexiconLMS.Migrations
             context.Modules.AddOrUpdate(modules);
             context.SaveChanges();
 
+            var ActivityType = new[]
+           {
+                new ActivityType { TypeName="Föreläsning"},
+                new ActivityType { TypeName="E-learning" },
+                new ActivityType { TypeName="Övning"},
+                new ActivityType { TypeName="Övrigt"}
+            };
+            context.ActivityTypes.AddOrUpdate(ActivityType);
+            context.SaveChanges();
             var activity = new[]
             {
-                new Activity { Name="e-learning", Description="grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 },
-                 new Activity { Name="Föreläsning", Description="Agrundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=2 },
-                  new Activity { Name="Övning", Description="Zgrundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 }
+                new Activity { Name="OOP", Description="grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1,ActivityTypeID=1},
+                new Activity { Name="C# Core", Description="grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=2,ActivityTypeID=2},
+                new Activity { Name="HTML", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=2},
+                new Activity { Name="CSS", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=1},
+                new Activity { Name="Garage 1.0", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=1 }
             };
             context.Activities.AddOrUpdate(activity);
             context.SaveChanges();
+
 
             // Get Users Teacher or Student
             foreach (var user in Users)
