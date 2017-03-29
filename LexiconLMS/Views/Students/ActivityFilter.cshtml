@@ -1,15 +1,12 @@
-﻿@model IEnumerable<LexiconLMS.Models.Module>
-
+﻿﻿@model IEnumerable<LexiconLMS.Models.Activity>
+@using LexiconLMS.Models;
 @{
-    ViewBag.Title = "Kursmoduler  ";
+    ViewBag.Title = "Aktiviteter";
 }
-
-<h3> @ViewBag.Title </h3>
-
-<table class="table table-hover sortable">
+<h1>@ViewBag.oneElement   @ViewBag.Title</h1>
+<table class="table table-hover table-striped sortable">
     <thead>
         <tr>
-
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -22,20 +19,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
-            <th>
-                Aktiviteter
-            </th>
-
-
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ModuleId)
+                </th>*@
             <th></th>
         </tr>
     </thead>
-
     @foreach (var item in Model)
     {
         <tbody>
             <tr>
-              
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -48,12 +41,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
-                <td>
-                    @Html.ActionLink("Aktiviteter", "ActivityFilter", "Students", new { id = item.ModuleID }, null)
-                </td>
-
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ModuleId)
+                    </td>*@
+                
             </tr>
         </tbody>
     }
-
 </table>
