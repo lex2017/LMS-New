@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addFirst : DbMigration
+    public partial class addfirst : DbMigration
     {
         public override void Up()
         {
@@ -17,10 +17,10 @@ namespace LexiconLMS.Migrations
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         ModuleId = c.Int(),
-                        ActivityTypeID = c.Int(nullable: false),
+                        ActivityTypeID = c.Int(),
                     })
                 .PrimaryKey(t => t.ActivityId)
-                .ForeignKey("dbo.ActivityTypes", t => t.ActivityTypeID, cascadeDelete: true)
+                .ForeignKey("dbo.ActivityTypes", t => t.ActivityTypeID)
                 .ForeignKey("dbo.Modules", t => t.ModuleId)
                 .Index(t => t.ModuleId)
                 .Index(t => t.ActivityTypeID);
@@ -30,7 +30,8 @@ namespace LexiconLMS.Migrations
                 c => new
                     {
                         ActivityTypeID = c.Int(nullable: false, identity: true),
-                        TypeName = c.String(),
+                        Name = c.String(),
+                        ActivityId = c.Int(),
                     })
                 .PrimaryKey(t => t.ActivityTypeID);
             

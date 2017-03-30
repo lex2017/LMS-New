@@ -3,7 +3,7 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
         <li>
@@ -11,21 +11,17 @@
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Logga ut</a></li>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
-
-            @if (User.IsInRole("Teacher"))
-            {
-                <li>@Html.ActionLink("Registrera ny användare", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-            }
-
-    </ul>
-
-
     }
+    <ul class="nav navbar-nav navbar-right">
+        @if (User.IsInRole("Teacher"))
+        {
+            <li>@Html.ActionLink("Registrera ny användare", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        }
+    </ul>
 }
 else
 {
-        <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink("Logga in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-        </ul>
-        }
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Logga in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
