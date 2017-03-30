@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Foolproof;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,11 +17,13 @@ namespace LexiconLMS.Models
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Startdatum")]
+        [LessThanOrEqualTo("EndDate", ErrorMessage = "Startdatum kan inte vara efter sludatum")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Slutdatum")]
+        [GreaterThanOrEqualTo("StartDate", ErrorMessage = "Slutdatum kan inte vara före startdatum.")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
