@@ -50,6 +50,10 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </div>
                     <div>
+                        @Html.DisplayNameFor(model => model.ActivityType.TypeName):
+                        @Html.DisplayFor(modelItem => item.ActivityType.TypeName)
+                    </div>
+                    <div>
                         @Html.DisplayNameFor(model => model.StartDate):
                         @Html.DisplayFor(modelItem => item.StartDate)
                     </div>
@@ -57,7 +61,8 @@
                         @Html.DisplayNameFor(model => model.EndDate):
                         @Html.DisplayFor(modelItem => item.EndDate)
                     </div>
-                    
+                    @Html.ActionLink("Ändra", "Edit", new { id = item.ActivityId }) |
+                    @Html.ActionLink("Ta bort", "Delete", new { id = item.ActivityId })
 
                 </div>
             </div>
