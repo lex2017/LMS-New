@@ -32,9 +32,11 @@ namespace LexiconLMS.Models
         public DateTime EndDate { get; set; }
 
         public int? ModuleId { get; set; }
-
         public virtual Module Module { get; set; }
 
+
+        public int ActivityTypeID { get; set; }
+        public virtual ActivityType ActivityType { get; set; }
 
 
     }

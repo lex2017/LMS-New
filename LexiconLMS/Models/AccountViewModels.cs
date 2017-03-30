@@ -85,6 +85,18 @@ namespace LexiconLMS.Models
         [Required]
         [Display(Name = "Roll")]
         public string UserRoles { get; set; }
+
+        [Display(Name = "Förnamn")]
+        public string FirstName { get; set; }
+        [Display(Name = "Efternamn")]
+        public string LastName { get; set; }
+        [Display(Name = "Namn")]
+        public string Fullname { get { return FirstName + " " + LastName; } }
+
+        public string PhoneNumber { get; set; }
+                
+        [Display(Name = "Course")]
+        public int? CourseID { get; set; }
     }
 
     public class ResetPasswordViewModel
