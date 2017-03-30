@@ -10,7 +10,7 @@ namespace LexiconLMS.Models
     {
         public int ActivityTypeID { get; set; }
         [Display(Name="Aktivitetstyp")]
-        public string Name { get; set; }
+        public string TypeName { get; set; }
         public int? ActivityId { get; set; }
         public virtual ICollection<Activity> Activity { get; set; }
     }

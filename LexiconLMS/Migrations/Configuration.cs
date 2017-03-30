@@ -161,10 +161,10 @@ namespace LexiconLMS.Migrations
 
             var ActivityType = new[]
            {
-                new ActivityType { Name="Föreläsning"},
-                new ActivityType { Name="E-learning" },
-                new ActivityType { Name="Övning"},
-                new ActivityType { Name="Övrigt"}
+                new ActivityType { TypeName="Föreläsning"},
+                new ActivityType { TypeName="E-learning" },
+                new ActivityType { TypeName="Övning"},
+                new ActivityType { TypeName="Övrigt"}
             };
             context.ActivityTypes.AddOrUpdate(ActivityType);
             context.SaveChanges();

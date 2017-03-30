@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addfirst : DbMigration
+    public partial class Add1 : DbMigration
     {
         public override void Up()
         {
@@ -30,7 +30,7 @@ namespace LexiconLMS.Migrations
                 c => new
                     {
                         ActivityTypeID = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        TypeName = c.String(),
                         ActivityId = c.Int(),
                     })
                 .PrimaryKey(t => t.ActivityTypeID);
