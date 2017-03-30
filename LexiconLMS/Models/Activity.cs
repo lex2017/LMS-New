@@ -35,7 +35,7 @@ namespace LexiconLMS.Models
         public virtual Module Module { get; set; }
 
 
-        public int ActivityTypeID { get; set; }
+        public int? ActivityTypeID { get; set; }
         public virtual ActivityType ActivityType { get; set; }
 
 

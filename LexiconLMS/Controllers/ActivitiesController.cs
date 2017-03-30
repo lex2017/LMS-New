@@ -75,10 +75,15 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId")] Activity activity)
         {
+            
             if (ModelState.IsValid)
             {
+             
+               
+                   
                 db.Activities.Add(activity);
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             MakeCreateDropDown(activity);
