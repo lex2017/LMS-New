@@ -1,10 +1,11 @@
 ﻿﻿@model IEnumerable<LexiconLMS.Models.Activity>
 @using LexiconLMS.Models;
 @{
-    ViewBag.Title = "Aktiviteter";
+    ViewBag.Title = "Kursaktiviteter";
 }
-<h1>@ViewBag.oneElement   @ViewBag.Title</h1>
-<table class="table table-hover table-striped sortable">
+<h3>Kurs @ViewBag.coursename, @ViewBag.coursedescription (@ViewBag.coursestartdate.ToString("yyy-MM-dd") - @ViewBag.courseenddate.ToString("yyy-MM-dd"))</h3>
+<h4>Modul @ViewBag.oneElement - @ViewBag.Title</h4>
+<table class="table table-hover sortable">
     <thead>
         <tr>
             <th>
@@ -22,7 +23,7 @@
             @*<th>
                     @Html.DisplayNameFor(model => model.ModuleId)
                 </th>*@
-            <th></th>
+    
         </tr>
     </thead>
     @foreach (var item in Model)
