@@ -26,7 +26,7 @@ namespace LexiconLMS.Migrations
 
             var courses = new[]
             {
-                new Course {Name="NET",  Description="Expert påbyggnadsutbildning",
+                new Course {Name=".NET",  Description="Expert påbyggnadsutbildning",
                     StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00") },
 
                 new Course {Name="Java", Description="IT påbyggnadsutbildning",
@@ -35,6 +35,8 @@ namespace LexiconLMS.Migrations
                 new Course {Name="Nätverk Teknik", Description="fyra månaders kurs till nätverk tekniker",
                     StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00")},
 
+                new Course {Name=".NET NF16",  Description="IT påbyggnadsutbildning",
+                    StartDate = DateTime.Parse("2016-12-19 09:00:00"), EndDate=DateTime.Parse("2017-04-11 09:00:00") },
             };
 
             context.Courses.AddOrUpdate(courses);
@@ -46,82 +48,113 @@ namespace LexiconLMS.Migrations
                 {
                   UserName = "teacher1@lexicon.se",
                   Email ="teacher1@lexicon.se",
-                  FirstName ="Kalle1",
-                  LastName ="Hans1" },
+                  FirstName ="Karl",
+                  LastName ="Hanssson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID},
 
-                 new ApplicationUser
+                new ApplicationUser
                 {
                   UserName = "teacher2@lexicon.se",
                   Email ="teacher2@lexicon.se",
-                  FirstName ="Kalle2",
-                  LastName ="Hans2" },
+                  FirstName ="Per",
+                  LastName ="Olsson" ,
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID},
 
-                  new ApplicationUser
+                new ApplicationUser
                 {
                   UserName = "teacher3@lexicon.se",
                   Email ="teacher3@lexicon.se",
-                  FirstName ="Kalle3",
-                  LastName ="Hans3"},
-                    new ApplicationUser
+                  FirstName ="Nils",
+                  LastName ="Persson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID},
+
+                new ApplicationUser
                 {
                   UserName = "teacher4@lexicon.se",
                   Email ="teacher4@lexicon.se",
-                  FirstName ="Kalle4",
-                  LastName ="Hans4" },
+                  FirstName ="Eva",
+                  LastName ="Larsson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID},
 
-                      new ApplicationUser
+                new ApplicationUser
                 {
                   UserName = "teacher5@lexicon.se",
                   Email ="teacher5@lexicon.se",
-                  FirstName ="Kalle5",
-                  LastName ="Hans5"},
+                  FirstName ="Mattias",
+                  LastName ="Jansson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID},
 
                 new ApplicationUser
                 {
                   UserName = "student1@lexicon.se",
                   Email ="student1@lexicon.se",
-                  FirstName ="Jan1",
-                  LastName ="Adam1",
-                 CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
+                  FirstName ="Kurt",
+                  LastName ="Olsson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
 
-                  new ApplicationUser
+                new ApplicationUser
                 {
                   UserName = "student2@lexicon.se",
                   Email ="student2@lexicon.se",
-                  FirstName ="Jan2",
-                  LastName ="Adam2",
-                 CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
+                  FirstName ="Martin",
+                  LastName ="Eriksson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
 
-                    new ApplicationUser
+                new ApplicationUser
                 {
                   UserName = "student3@lexicon.se",
                   Email ="student3@lexicon.se",
-                  FirstName ="Jan3",
-                  LastName ="Adam3",
-                 CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
+                  FirstName ="Sven",
+                  LastName ="Svensson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
 
-                      new ApplicationUser
+                new ApplicationUser
                 {
                   UserName = "student4@lexicon.se",
                   Email ="student4@lexicon.se",
-                  FirstName ="Jan4",
-                  LastName ="Adam4",
-                 CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
-                        new ApplicationUser
+                  FirstName ="Pål",
+                  LastName ="Karlsson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
+
+                new ApplicationUser
                 {
                   UserName = "student5@lexicon.se",
                   Email ="student5@lexicon.se",
-                  FirstName ="Jan5",
-                  LastName ="Adam5",
-                 CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
+                  FirstName ="Jan",
+                  LastName ="Johansson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == "Java").CourseID },
+
+                new ApplicationUser
+                {
+                  UserName = "student6@lexicon.se",
+                  Email ="student6@lexicon.se",
+                  FirstName ="Karl",
+                  LastName ="Karlsson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == ".NET NF16").CourseID },
+
+                new ApplicationUser
+                {
+                  UserName = "student7@lexicon.se",
+                  Email ="student7@lexicon.se",
+                  FirstName ="Kurt",
+                  LastName ="Olsson",
+                  CourseId = context.Courses.FirstOrDefault(c => c.Name == ".NET NF16").CourseID },
             };
             context.SaveChanges();
 
             var modules = new[]
             {
-                new Module { Name="C#", Description="Grund läggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), CourseId=1 },
-                new Module { Name="Netbeans", Description="AGrund läggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), CourseId=2 },
-                new Module { Name="Angular", Description="BGrund läggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), CourseId=1 }
+                new Module { Name="C#", Description="Grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), CourseId=1 },
+                new Module { Name="Netbeans", Description="AGrundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), CourseId=2 },
+                new Module { Name="Angular", Description="BGrundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), CourseId=1 },
+
+                new Module { Name="C#", Description="Introduktion", StartDate = DateTime.Parse("2016-12-19 09:00:00"), EndDate=DateTime.Parse("2017-01-17 09:00:00"), CourseId=4 },
+                new Module { Name="Webb", Description="Introduktion", StartDate = DateTime.Parse("2017-01-18 09:00:00"), EndDate=DateTime.Parse("2017-01-31 09:00:00"), CourseId=4 },
+                new Module { Name="MVC", Description="Introduktion", StartDate = DateTime.Parse("2017-02-01 09:00:00"), EndDate=DateTime.Parse("2017-02-14 09:00:00"), CourseId=4 },
+                new Module { Name="Databas", Description="Introduktion", StartDate = DateTime.Parse("2017-02-15 09:00:00"), EndDate=DateTime.Parse("2017-02-21 09:00:00"), CourseId=4 },
+                new Module { Name="Testning", Description="Introduktion", StartDate = DateTime.Parse("2017-02-22 09:00:00"), EndDate=DateTime.Parse("2017-03-01 09:00:00"), CourseId=4 },
+                new Module { Name="App.utv", Description="Introduktion", StartDate = DateTime.Parse("2017-03-02 09:00:00"), EndDate=DateTime.Parse("2017-03-08 09:00:00"), CourseId=4 },
+                new Module { Name="MVC fördj", Description="Introduktion", StartDate = DateTime.Parse("2017-03-09 09:00:00"), EndDate=DateTime.Parse("2017-04-11 09:00:00"), CourseId=4 },
             };
             context.Modules.AddOrUpdate(modules);
             context.SaveChanges();
@@ -181,7 +214,7 @@ namespace LexiconLMS.Migrations
                 userManager.AddToRole(teacherUser.Id, "Teacher");
             }
 
-            var students = new[] { "student1@lexicon.se", "student2@lexicon.se", "student3@lexicon.se", "student4@lexicon.se", "student5@lexicon.se" };
+            var students = new[] { "student1@lexicon.se", "student2@lexicon.se", "student3@lexicon.se", "student4@lexicon.se", "student5@lexicon.se", "student6@lexicon.se", "student7@lexicon.se" };
             foreach (var item in students)
             {
                 var studentUser = userManager.FindByName(item);
