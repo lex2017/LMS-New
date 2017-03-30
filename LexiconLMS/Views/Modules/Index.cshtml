@@ -41,11 +41,17 @@
                     </h4>
                 </div>
                 <div id="@item.ModuleID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading">
-                    <div class="break">
+                    <div>
+                        @Html.DisplayNameFor(model => model.Course.Name):
+
+                        @Html.DisplayFor(modelItem => item.Course.Name)
+                    </div>
+                    <div>
                         @Html.DisplayNameFor(model => model.Description):
 
                         @Html.DisplayFor(modelItem => item.Description)
                     </div>
+                  
                     <div>
                         @Html.DisplayNameFor(model => model.StartDate):
                         @Html.DisplayFor(modelItem => item.StartDate)

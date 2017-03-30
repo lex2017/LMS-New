@@ -6,9 +6,6 @@
 
 <h2>@ViewBag.Title</h2>
 
-@*<p>
-    @Html.ActionLink("Lägg till", "Register", "Account")
-</p>*@
 <div>
     @using (Html.BeginForm("Index", "ManageTeachers", FormMethod.Get))
     {
@@ -16,7 +13,6 @@
             <div class="col-lg-4">
                 <p class="breadcrumb">
                     <br />
-                    @*@Html.DropDownList("Alternative")*@
                     @Html.TextBox("SearchString")
                     <input type="submit" value="Sök" />
                 </p>
@@ -24,49 +20,47 @@
         </div>
     }
 </div>
-<table class="table table-hover sortable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
+@foreach (var item in Model)
+{
 
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
+    <div class="row">
+        <div class="col-lg-4">
 
 
-            <th></th>
-        </tr>
-    </thead>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
 
-    @foreach (var item in Model)
-    {
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#@item.Id" aria-expanded="false" aria-controls="@item.Id">
+                            @item.Fullname
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
+                        </a>
+                    </h4>
+                </div>
+                <div id="@item.Id" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading">
+                    <div>
+                        @Html.DisplayNameFor(model => model.FirstName):
 
-
-
-                <td>
+                        <b>@Html.DisplayFor(modelItem => item.FirstName)</b>
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(model => model.LastName):
+                        <b> @Html.DisplayFor(modelItem => item.LastName)</b>
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(model => model.Email):
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(model => model.PhoneNumber):
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </div>
                     @Html.ActionLink("Ändra", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Detaljer", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Ta bort", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        </tbody>
-    }
+                </div>
+            </div>
+        </div>
+    </div>
 
-</table>
+
+}

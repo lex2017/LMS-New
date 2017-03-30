@@ -23,42 +23,45 @@
     }
 </div>
 @foreach (var item in Model)
-    {
+{
 
-<div class="row">
-    <div class="col-lg-4">
+    <div class="row">
+        <div class="col-lg-4">
 
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
 
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#@item.ActivityId" aria-expanded="false" aria-controls="@item.ActivityId">
-                        @item.Name
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#@item.ActivityId" aria-expanded="false" aria-controls="@item.ActivityId">
+                            @item.Name
 
-                    </a>
-                </h4>
-            </div>
-            <div id="@item.ActivityId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading">
-                <div class="break">
-                    @Html.DisplayNameFor(model => model.Description):
-
-                    @Html.DisplayFor(modelItem => item.Description)
+                        </a>
+                    </h4>
                 </div>
-                <div>
-                    @Html.DisplayNameFor(model => model.StartDate):
-                    @Html.DisplayFor(modelItem => item.StartDate)
+                <div id="@item.ActivityId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading">
+                    <div>
+                        @Html.DisplayNameFor(model => model.Module.Name):
+                        @Html.DisplayFor(modelItem => item.Module.Name)
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(model => model.Description):
+
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(model => model.StartDate):
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(model => model.EndDate):
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </div>
+                    
+
                 </div>
-                <div>
-                    @Html.DisplayNameFor(model => model.EndDate):
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </div>
-                @*@Html.ActionLink("Dokuments", "DocumentFilter", "Dokumenter", new { id = item.ActivityId }, null) |*@
-                @Html.ActionLink("Ändra", "Edit", new { id = item.ActivityId }) |
-                @Html.ActionLink("Ta bort", "Delete", new { id = item.ActivityId })
             </div>
         </div>
     </div>
-</div>
-    
+
 }
