@@ -49,3 +49,9 @@ th {
     color: #428bca;
     text-decoration: none;
 }
+
+.break {
+    word-wrap: break-word !important;
+    word-break: break-all !important;
+    text-wrap: suppress !important;
+}
