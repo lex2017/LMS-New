@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Moduler";
 }
-<h1>@ViewBag.oneElement   @ViewBag.Title</h1>
+<h4>Kursnamn: <span class="alert-info">@ViewBag.coursename</span></h4>
 <p>
     @Html.ActionLink("Lägg till", "Create")
 </p>
@@ -22,7 +22,7 @@
         </div>
     }
 </div>
-<table class="table table-hover table-striped sortable">
+<table class="table table-hover table-striped sortable-sr">
     <thead>
         <tr>
             <th>

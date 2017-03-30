@@ -23,25 +23,21 @@ namespace LexiconLMS.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 activity = activity.Where(s => s.Name.Contains(searchString)
-                                              || s.Description.Contains(searchString));
+                                              || s.Description.Contains(searchString) || s.Module.Course.Name.Contains(searchString));
 
-                return View(activity);
+                return View(activity.ToList());
             }
             return View(db.Activities.ToList());
         }
 
         public ActionResult ActivityFilter(int? id)
         {
-            var oneActivity = db.Modules.Where(v => v.ModuleID == id).ToList();
 
+            ViewBag.id = id;
+            ViewBag.coursename = db.Courses.Where(v => v.CourseID == id).Select(x =>x.Name).SingleOrDefault().ToString();
+            ViewBag.modulname = db.Modules.Where(v => v.ModuleID == id).Select(x => x.Name).SingleOrDefault().ToString();
+            //ViewBag.activityname = db.Activities.Where(v => v.ModuleId == id).Select(x => x.Name).SingleOrDefault().ToString();
 
-            foreach (var item in oneActivity)
-            {
-                if (oneActivity.Count() == 1)
-                {
-                    ViewBag.oneElement = item.Name;
-                }
-            }
 
             IQueryable<Activity> activity = db.Activities.Where(x => x.ModuleId == id);
             return View("Index", activity.ToList());

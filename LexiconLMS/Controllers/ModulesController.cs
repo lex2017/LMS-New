@@ -36,17 +36,9 @@ namespace LexiconLMS.Controllers
 
         public ActionResult ModuleFilter(int? id)
         {
-            var oneModule = db.Courses.Where(v => v.CourseID == id).ToList();
-
-
-            foreach (var item in oneModule)
-            {
-                if (oneModule.Count() == 1)
-                {
-                    ViewBag.oneElement = item.Name;
-                }
-            }
-
+             ViewBag.modulname = db.Modules.Where(v => v.ModuleID == id).Select(x => x.Name).SingleOrDefault().ToString();
+             ViewBag.coursename = db.Courses.Where(v => v.CourseID == id).Select(x => x.Name).SingleOrDefault().ToString();
+  
             IQueryable<Module> module = db.Modules.Where(x => x.CourseId == id);
             return View("Index", module.ToList() );
         }

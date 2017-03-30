@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "Aktiviteter";
 }
-<h1>@ViewBag.oneElement   @ViewBag.Title</h1>
+<h3>@ViewBag.oneElement </h3>
+@if (ViewBag.id!=null)
+{
+<h4>Kursnamn: <span class="alert-info">@ViewBag.coursename</span> , Modulnamn: <span class="alert-info">@ViewBag.modulname</h4>
+
+}
 <p>
     @Html.ActionLink("lägg till", "Create")
 </p>
@@ -25,15 +30,19 @@
 <table class="table table-hover table-striped sortable">
     <thead>
         <tr>
+            <th data-defaultsort="asc"> 
+                @Html.DisplayNameFor(model => model.Module.Course.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module.Name)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ActivityType.TypeName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Module.Name)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
@@ -54,13 +63,16 @@
         <tbody>
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Module.Course.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Name)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ActivityType.TypeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Module.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
