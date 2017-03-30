@@ -64,6 +64,7 @@ namespace LexiconLMS.Controllers
         // GET: Activities/Create
         public ActionResult Create()
         {
+            ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
             MakeCreateDropDown(null);
             return View();
         }
