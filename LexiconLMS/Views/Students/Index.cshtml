@@ -5,7 +5,13 @@
 }
 
 <h2>@ViewBag.Title</h2>
-
+@if (Request.IsAuthenticated)
+{
+    <p>
+        Logged in som
+        @User.Identity.Name
+    </p>
+}
 
 <div>
     <h4>Kurs detaljer</h4>

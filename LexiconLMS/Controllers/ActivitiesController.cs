@@ -64,6 +64,7 @@ namespace LexiconLMS.Controllers
         // GET: Activities/Create
         public ActionResult Create()
         {
+            ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
             MakeCreateDropDown(null);
             return View();
         }
@@ -73,15 +74,21 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId")] Activity activity)
+        public ActionResult Create([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId,ActivityTypeID")] Activity activity)
         {
+            
             if (ModelState.IsValid)
             {
+             
+               
+                   
                 db.Activities.Add(activity);
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             MakeCreateDropDown(activity);
+            ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
             return View(activity);
         }
 
@@ -94,6 +101,7 @@ namespace LexiconLMS.Controllers
         // GET: Activities/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -112,10 +120,11 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId")] Activity activity)
+        public ActionResult Edit([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId,ActivityTypeID")] Activity activity)
         {
             if (ModelState.IsValid)
             {
+                ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

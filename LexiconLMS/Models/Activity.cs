@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Foolproof;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,11 +21,13 @@ namespace LexiconLMS.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [LessThanOrEqualTo("EndDate", ErrorMessage = "Startdatum kan inte vara efter sludatum")]
         [Display(Name = "Startdatum")]
         public DateTime StartDate { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
+        [GreaterThanOrEqualTo("StartDate", ErrorMessage = "Slutdatum kan inte vara före startdatum.")]
         [Display(Name = "Slutdatum")]
         public DateTime EndDate { get; set; }
 
@@ -32,7 +35,7 @@ namespace LexiconLMS.Models
         public virtual Module Module { get; set; }
 
 
-        public int ActivityTypeID { get; set; }
+        public int? ActivityTypeID { get; set; }
         public virtual ActivityType ActivityType { get; set; }
 
 
