@@ -31,6 +31,7 @@ namespace LexiconLMS.Migrations
                     {
                         ActivityTypeID = c.Int(nullable: false, identity: true),
                         TypeName = c.String(),
+                        ActivityId = c.Int(),
                     })
                 .PrimaryKey(t => t.ActivityTypeID);
             

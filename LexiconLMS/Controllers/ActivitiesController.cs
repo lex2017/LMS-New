@@ -23,25 +23,21 @@ namespace LexiconLMS.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 activity = activity.Where(s => s.Name.Contains(searchString)
-                                              || s.Description.Contains(searchString));
+                                              || s.Description.Contains(searchString) || s.Module.Course.Name.Contains(searchString));
 
-                return View(activity);
+                return View(activity.ToList());
             }
             return View(db.Activities.ToList());
         }
 
         public ActionResult ActivityFilter(int? id)
         {
-            var oneActivity = db.Modules.Where(v => v.ModuleID == id).ToList();
 
+            ViewBag.id = id;
+            ViewBag.coursename = db.Courses.Where(v => v.CourseID == id).Select(x =>x.Name).SingleOrDefault().ToString();
+            ViewBag.modulname = db.Modules.Where(v => v.ModuleID == id).Select(x => x.Name).SingleOrDefault().ToString();
+            //ViewBag.activityname = db.Activities.Where(v => v.ModuleId == id).Select(x => x.Name).SingleOrDefault().ToString();
 
-            foreach (var item in oneActivity)
-            {
-                if (oneActivity.Count() == 1)
-                {
-                    ViewBag.oneElement = item.Name;
-                }
-            }
 
             IQueryable<Activity> activity = db.Activities.Where(x => x.ModuleId == id);
             return View("Index", activity.ToList());
@@ -74,7 +70,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId")] Activity activity)
+        public ActionResult Create([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId,ActivityTypeID")] Activity activity)
         {
             
             if (ModelState.IsValid)
@@ -88,6 +84,7 @@ namespace LexiconLMS.Controllers
                 return RedirectToAction("Index");
             }
             MakeCreateDropDown(activity);
+            ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
             return View(activity);
         }
 
@@ -100,6 +97,7 @@ namespace LexiconLMS.Controllers
         // GET: Activities/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -118,10 +116,11 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId")] Activity activity)
+        public ActionResult Edit([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId,ActivityTypeID")] Activity activity)
         {
             if (ModelState.IsValid)
             {
+                ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

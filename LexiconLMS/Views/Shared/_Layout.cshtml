@@ -37,17 +37,37 @@
                 }
                 else if (User.IsInRole("Student"))
                 {
-                    <li>@Html.ActionLink("Kurs", "Index", "Students")</li>
-                    <li>@Html.ActionLink("Kursmoduler", "Studentmodules", "Students")</li>
+                    @*<li>@Html.ActionLink("Kurs", "Index", "Students")</li>*@
+                    <li>@Html.ActionLink("Kurs", "Studentmodules", "Students")</li>
+                    <li>@Html.ActionLink("Kursaktiviteter", "Activitylist", "Students")</li>
                     <li>@Html.ActionLink("Kursdeltagare", "Studentlist", "Students")</li>
-                    <li>@Html.ActionLink("Aktivitetslista", "Activitylist", "Students")</li>
                 }
                 </ul>
                 @Html.Partial("_LoginPartial")
+
             </div>
         </div>
     </div>
     <div class="container body-content">
+      
+        <ol class="breadcrumb">
+
+
+            @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+            {
+                @Html.ActionLink("Home", "Index", "Home")
+                <li class="active">
+                    / @ViewBag.Title
+                </li>
+            }
+            else
+            {
+                <li class="active">
+                    Home
+                </li>
+            }
+
+        </ol>
         @RenderBody()
         <hr />
         <footer class="modal-footer">

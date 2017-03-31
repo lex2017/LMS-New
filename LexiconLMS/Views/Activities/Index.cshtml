@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "Aktiviteter";
 }
-<h1>@ViewBag.oneElement   @ViewBag.Title</h1>
+<h3>@ViewBag.oneElement </h3>
+@if (ViewBag.id!=null)
+{
+<h4>Kursnamn: <span class="alert-info">@ViewBag.coursename</span> , Modulnamn: <span class="alert-info">@ViewBag.modulname</h4>
+
+}
 <p>
     @Html.ActionLink("lägg till", "Create")
 </p>
@@ -22,51 +27,71 @@
         </div>
     }
 </div>
-@foreach (var item in Model)
-{
-
-    <div class="row">
-        <div class="col-lg-4">
-
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#@item.ActivityId" aria-expanded="false" aria-controls="@item.ActivityId">
-                            @item.Name
-
-                        </a>
-                    </h4>
-                </div>
-                <div id="@item.ActivityId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading">
-                    <div>
-                        @Html.DisplayNameFor(model => model.Module.Name):
-                        @Html.DisplayFor(modelItem => item.Module.Name)
-                    </div>
-                    <div>
-                        @Html.DisplayNameFor(model => model.Description):
-
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </div>
-                    <div>
-                        @Html.DisplayNameFor(model => model.ActivityType.TypeName):
-                        @Html.DisplayFor(modelItem => item.ActivityType.TypeName)
-                    </div>
-                    <div>
-                        @Html.DisplayNameFor(model => model.StartDate):
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </div>
-                    <div>
-                        @Html.DisplayNameFor(model => model.EndDate):
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </div>
+<table class="table table-hover table-striped sortable">
+    <thead>
+        <tr>
+            <th data-defaultsort="asc"> 
+                @Html.DisplayNameFor(model => model.Module.Course.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityType.Name)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ModuleId)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Course.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActivityType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ModuleId)
+                    </td>*@
+                <td>
+                    @*@Html.ActionLink("Dokuments", "DocumentFilter", "Dokumenter", new { id = item.ActivityId }, null) |*@
                     @Html.ActionLink("Ändra", "Edit", new { id = item.ActivityId }) |
                     @Html.ActionLink("Ta bort", "Delete", new { id = item.ActivityId })
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-}
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>

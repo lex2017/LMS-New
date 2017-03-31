@@ -92,10 +92,10 @@ namespace LexiconLMS.Models
         public string LastName { get; set; }
         [Display(Name = "Namn")]
         public string Fullname { get { return FirstName + " " + LastName; } }
-
+        [Display(Name = "Telefonnummer")]
         public string PhoneNumber { get; set; }
                 
-        [Display(Name = "Course")]
+        [Display(Name = "Kurs")]
         public int? CourseID { get; set; }
     }
 
