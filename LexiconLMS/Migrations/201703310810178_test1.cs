@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Add1 : DbMigration
+    public partial class test1 : DbMigration
     {
         public override void Up()
         {
@@ -16,12 +16,12 @@ namespace LexiconLMS.Migrations
                         Description = c.String(nullable: false),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
-                        ModuleId = c.Int(),
+                        ModuleId = c.Int(nullable: false),
                         ActivityTypeID = c.Int(),
                     })
                 .PrimaryKey(t => t.ActivityId)
                 .ForeignKey("dbo.ActivityTypes", t => t.ActivityTypeID)
-                .ForeignKey("dbo.Modules", t => t.ModuleId)
+                .ForeignKey("dbo.Modules", t => t.ModuleId, cascadeDelete: true)
                 .Index(t => t.ModuleId)
                 .Index(t => t.ActivityTypeID);
             
@@ -31,7 +31,6 @@ namespace LexiconLMS.Migrations
                     {
                         ActivityTypeID = c.Int(nullable: false, identity: true),
                         TypeName = c.String(),
-                        ActivityId = c.Int(),
                     })
                 .PrimaryKey(t => t.ActivityTypeID);
             
@@ -44,10 +43,10 @@ namespace LexiconLMS.Migrations
                         Description = c.String(),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
-                        CourseId = c.Int(),
+                        CourseId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ModuleID)
-                .ForeignKey("dbo.Courses", t => t.CourseId)
+                .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
                 .Index(t => t.CourseId);
             
             CreateTable(
@@ -69,7 +68,7 @@ namespace LexiconLMS.Migrations
                         Id = c.String(nullable: false, maxLength: 128),
                         FirstName = c.String(),
                         LastName = c.String(),
-                        CourseId = c.Int(),
+                        CourseId = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -83,7 +82,7 @@ namespace LexiconLMS.Migrations
                         UserName = c.String(nullable: false, maxLength: 256),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Courses", t => t.CourseId)
+                .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
                 .Index(t => t.CourseId)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             

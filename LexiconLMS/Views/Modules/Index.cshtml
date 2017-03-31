@@ -3,7 +3,10 @@
 @{
     ViewBag.Title = "Moduler";
 }
-<h4>Kursnamn: <span class="alert-info">@ViewBag.coursename</span></h4>
+@if (ViewBag.coursename != null)
+{
+    <h4>Kursnamn: <span class="alert-info">@ViewBag.coursename</span></h4>
+}
 <p>
     @Html.ActionLink("Lägg till", "Create")
 </p>
@@ -61,7 +64,7 @@
                 <td>
                     @Html.ActionLink("Aktiviteter", "ActivityFilter", "Activities", new { id = item.ModuleID }, null) |
                     @Html.ActionLink("Ändra", "Edit", new { id = item.ModuleID }) |
-                    @Html.ActionLink("Detaljer", "Details", new { id = item.ModuleID }) |
+                   @* @Html.ActionLink("Detaljer", "Details", new { id = item.ModuleID }) |*@
                     @Html.ActionLink("Ta bort", "Delete", new { id = item.ModuleID })
                 </td>
             </tr>

@@ -158,7 +158,14 @@ namespace LexiconLMS.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,PhoneNumber=model.PhoneNumber,CourseId=model.CourseID };
+                
+                if (model.CourseID==null)
+                {
+                    model.CourseID = 3;
+                }
+                
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,PhoneNumber=model.PhoneNumber,CourseId=model.CourseID.Value };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

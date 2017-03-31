@@ -36,9 +36,10 @@ namespace LexiconLMS.Controllers
 
         public ActionResult ModuleFilter(int? id)
         {
-             ViewBag.modulname = db.Modules.Where(v => v.ModuleID == id).Select(x => x.Name).SingleOrDefault().ToString();
-             ViewBag.coursename = db.Courses.Where(v => v.CourseID == id).Select(x => x.Name).SingleOrDefault().ToString();
-  
+            ViewBag.modulid = id;
+            ViewBag.modulname = db.Modules.Where(v => v.ModuleID == id).Select(x => x.Name).SingleOrDefault().ToString();
+            ViewBag.coursename = db.Courses.Where(v => v.CourseID == id).Select(x => x.Name).SingleOrDefault().ToString();
+
             IQueryable<Module> module = db.Modules.Where(x => x.CourseId == id);
             return View("Index", module.ToList() );
         }
@@ -76,7 +77,8 @@ namespace LexiconLMS.Controllers
             {
                 db.Modules.Add(module);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("ModuleFilter", new { id = module.CourseId });
             }
             MakeCreateDropDown(module);
             return View(module);

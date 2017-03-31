@@ -80,8 +80,8 @@ namespace LexiconLMS.Controllers
                    
                 db.Activities.Add(activity);
                 db.SaveChanges();
-                
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("ActivityFilter", new { id = activity.ModuleId });
             }
             MakeCreateDropDown(activity);
             ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
