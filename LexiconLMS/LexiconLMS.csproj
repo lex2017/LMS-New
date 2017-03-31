@@ -183,9 +183,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703301451430_Add1.cs" />
-    <Compile Include="Migrations\201703301451430_Add1.Designer.cs">
-      <DependentUpon>201703301451430_Add1.cs</DependentUpon>
+    <Compile Include="Migrations\201703311136391_AddTest.cs" />
+    <Compile Include="Migrations\201703311136391_AddTest.Designer.cs">
+      <DependentUpon>201703311136391_AddTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -208,6 +208,7 @@
     <Content Include="Content\bootstrap-sortable.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -310,8 +311,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703301451430_Add1.resx">
-      <DependentUpon>201703301451430_Add1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703311136391_AddTest.resx">
+      <DependentUpon>201703311136391_AddTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
