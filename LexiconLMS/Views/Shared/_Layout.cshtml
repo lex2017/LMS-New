@@ -29,8 +29,8 @@
                 @if (User.IsInRole("Teacher"))
                 {
                     <li>@Html.ActionLink("Kurser", "Index", "Courses")</li>
-                    <li>@Html.ActionLink("Moduler", "Index", "Modules")</li>
-                    <li>@Html.ActionLink("Aktiviteter", "Index", "Activities")</li>
+                    @*<li>@Html.ActionLink("Moduler", "Index", "Modules")</li>
+                    <li>@Html.ActionLink("Aktiviteter", "Index", "Activities")</li>*@
                     <li>@Html.ActionLink("Elever", "Index", "ManageStudents")</li>
                     <li>@Html.ActionLink("Lärare", "Index", "ManageTeachers")</li>
 

@@ -16,11 +16,13 @@ namespace LexiconLMS.Models
         public string Description { get; set; }
 
         [Display(Name = "Startdatum")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [LessThanOrEqualTo("EndDate", ErrorMessage = "Startdatum kan inte vara efter sludatum")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "Slutdatum")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [GreaterThanOrEqualTo("StartDate", ErrorMessage = "Slutdatum kan inte vara före startdatum.")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }

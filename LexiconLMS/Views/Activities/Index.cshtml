@@ -3,14 +3,12 @@
 @{
     ViewBag.Title = "Aktiviteter";
 }
-<h3>@ViewBag.oneElement </h3>
-@if (ViewBag.id!=null)
+@if (ViewBag.modulname != null)
 {
-<h4>Kursnamn: <span class="alert-info">@ViewBag.coursename</span> , Modulnamn: <span class="alert-info">@ViewBag.modulname</span></h4>
-
-}
+    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> / </b> <span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Modul", "ModuleFilter", "Modules", new { courseid = ViewBag.courseid }, null): <span class="alert-info">@ViewBag.modulname</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Aktiviteter</b></h4>
+   }
 <p>
-    @Html.ActionLink("lägg till", "Create")
+    @Html.ActionLink("Lägg till", "Create",new { modulid = ViewBag.modulid, coursename = ViewBag.coursename, modulname = ViewBag.modulname })
 </p>
 <div>
     @using (Html.BeginForm("Index", "Activities", FormMethod.Get))
@@ -88,11 +86,12 @@
                     </td>*@
                 <td>
                     @*@Html.ActionLink("Dokuments", "DocumentFilter", "Dokumenter", new { id = item.ActivityId }, null) |*@
-                    @Html.ActionLink("Ändra", "Edit", new { id = item.ActivityId }) |
+                    @Html.ActionLink("Ändra", "Edit", new { id = item.ActivityId, modulid = ViewBag.modulid, coursename = ViewBag.coursename }) |
                   @*  @Html.ActionLink("Detaljer", "Details", new { id = item.ActivityId }) |*@
-                    @Html.ActionLink("Ta bort", "Delete", new { id = item.ActivityId })
+                    @Html.ActionLink("Ta bort", "Delete", new { id = item.ActivityId, modulid = ViewBag.modulid })
                 </td>
             </tr>
         </tbody>
     }
 </table>
+
