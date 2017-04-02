@@ -33,6 +33,7 @@ namespace LexiconLMS.Models
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Module> Modules { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
 
     }
 }
