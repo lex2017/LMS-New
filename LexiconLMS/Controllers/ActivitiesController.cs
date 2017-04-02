@@ -30,16 +30,20 @@ namespace LexiconLMS.Controllers
             return View(db.Activities.ToList());
         }
 
-        public ActionResult ActivityFilter(int? id)
+        public ActionResult ActivityFilter(int? modulid)
         {
 
-            ViewBag.id = id;
-            ViewBag.coursename = db.Courses.Where(v => v.CourseID == id).Select(x =>x.Name).SingleOrDefault().ToString();
-            ViewBag.modulname = db.Modules.Where(v => v.ModuleID == id).Select(x => x.Name).SingleOrDefault().ToString();
+            //ViewBag.id = id;
+            ViewBag.modulid = modulid;
+            //ViewBag.coursename = db.Courses.Where(v => v.CourseID == id).Select(x =>x.Name).SingleOrDefault().ToString();
+            int courseid = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.CourseId).SingleOrDefault();
+            ViewBag.courseid = courseid;
+            ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+            ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
             //ViewBag.activityname = db.Activities.Where(v => v.ModuleId == id).Select(x => x.Name).SingleOrDefault().ToString();
 
 
-            IQueryable<Activity> activity = db.Activities.Where(x => x.ModuleId == id);
+            IQueryable<Activity> activity = db.Activities.Where(x => x.ModuleId == modulid);
             return View("Index", activity.ToList());
         }
         // GET: Activities/Details/5
@@ -58,8 +62,11 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Activities/Create
-        public ActionResult Create()
+        public ActionResult Create(string coursename,string modulname, int? modulid)
         {
+            ViewBag.modulid = modulid;
+            ViewBag.coursename = coursename;
+            ViewBag.modulname = modulname;
             ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
             MakeCreateDropDown(null);
             return View();
@@ -70,18 +77,19 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId,ActivityTypeID")] Activity activity)
+        public ActionResult Create([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ActivityTypeID")] Activity activity, int modulid)
         {
             
             if (ModelState.IsValid)
             {
-             
-               
-                   
+
+                activity.ModuleId = modulid;
+                ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
+                //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
                 db.Activities.Add(activity);
                 db.SaveChanges();
-                
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
             }
             MakeCreateDropDown(activity);
             ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
@@ -95,8 +103,10 @@ namespace LexiconLMS.Controllers
 
 
         // GET: Activities/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id,string coursename, string modulname, int? modulid)
         {
+            ViewBag.modulid = modulid;
+            ViewBag.modulname = modulname;
             ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
             if (id == null)
             {
@@ -120,10 +130,13 @@ namespace LexiconLMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+                activity.ModuleId = db.Activities.AsNoTracking().FirstOrDefault(z => z.ActivityId == activity.ActivityId).ModuleId;
                 ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
+                //return RedirectToAction("Index");
             }
             return View(activity);
         }
@@ -146,12 +159,13 @@ namespace LexiconLMS.Controllers
         // POST: Activities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id,int modulid)
         {
             Activity activity = db.Activities.Find(id);
             db.Activities.Remove(activity);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

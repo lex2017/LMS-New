@@ -15,14 +15,14 @@ namespace LexiconLMS.Models
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Startdatum")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [LessThanOrEqualTo("EndDate", ErrorMessage = "Startdatum kan inte vara efter sludatum")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Slutdatum")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [GreaterThanOrEqualTo("StartDate", ErrorMessage = "Slutdatum kan inte vara före startdatum.")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
@@ -31,7 +31,7 @@ namespace LexiconLMS.Models
         [Display(Name = "Kurs")]
         public virtual Course Course { get; set; }
         [Display(Name = "Kurs")]
-        public int? CourseId { get; set; }
+        public int CourseId { get; set; }
 
         public virtual ICollection<Activity> Activities { get; set; }
 

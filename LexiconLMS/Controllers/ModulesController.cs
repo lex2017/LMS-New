@@ -34,12 +34,17 @@ namespace LexiconLMS.Controllers
             return View(db.Modules.ToList());
         }
 
-        public ActionResult ModuleFilter(int? id)
+        public ActionResult ModuleFilter(int courseid)
         {
-             ViewBag.modulname = db.Modules.Where(v => v.ModuleID == id).Select(x => x.Name).SingleOrDefault().ToString();
-             ViewBag.coursename = db.Courses.Where(v => v.CourseID == id).Select(x => x.Name).SingleOrDefault().ToString();
-  
-            IQueryable<Module> module = db.Modules.Where(x => x.CourseId == id);
+            IQueryable<Module> module = db.Modules.Where(x => x.CourseId == courseid);
+            ViewBag.courseid = courseid;
+            if (module.Count() !=0)
+            {
+            //ViewBag.modulid = id;
+            //ViewBag.modulname = db.Modules.Where(v => v.CourseId == id).Select(x => x.Name).SingleOrDefault().ToString();
+            }
+            ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+
             return View("Index", module.ToList() );
         }
         // GET: Modules/Details/5
@@ -58,33 +63,41 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Modules/Create
-        public ActionResult Create()
+        public ActionResult Create(string coursename,int courseid)
         {
+            ViewBag.coursename = coursename;
+            ViewBag.courseid = courseid;
             MakeCreateDropDown(null);
             return View();
         }
 
-       
+        
         // POST: Modules/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ModuleID,Name,Description,StartDate,EndDate,CourseId")] Module module)
+        public ActionResult Create([Bind(Include = "ModuleID,Name,Description,StartDate,EndDate")] Module module, int courseid,string coursename)
         {
             if (ModelState.IsValid)
             {
+                ViewBag.coursename = coursename;
+                ViewBag.courseid = courseid;
+                module.CourseId = courseid;
+                //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
                 db.Modules.Add(module);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("ModuleFilter", new { courseid = module.CourseId });
             }
             MakeCreateDropDown(module);
             return View(module);
         }
 
         // GET: Modules/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int courseid)
         {
+            ViewBag.courseid= courseid;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -103,13 +116,15 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ModuleID,Name,Description,StartDate,EndDate,CourseId")] Module module)
+        public ActionResult Edit([Bind(Include = "ModuleID,Name,Description,StartDate,EndDate,CourseId")] Module module, int courseid)
         {
             if (ModelState.IsValid)
             {
+                module.CourseId = courseid;
                 db.Entry(module).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ModuleFilter", new { courseid = module.CourseId });
+                //return RedirectToAction("Index");
             }
             MakeCreateDropDown(module);
             return View(module);
@@ -138,7 +153,8 @@ namespace LexiconLMS.Controllers
             Module module = db.Modules.Find(id);
             db.Modules.Remove(module);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Courses");
+            //return RedirectToAction("Index");
         }
 
         private void MakeCreateDropDown(Module module)
