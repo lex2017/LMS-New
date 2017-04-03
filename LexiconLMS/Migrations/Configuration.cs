@@ -229,6 +229,15 @@ namespace LexiconLMS.Migrations
             context.Activities.AddOrUpdate(activity);
             context.SaveChanges();
 
+            //var documents = new[]
+            //{
+            //    //new Document {FileName="", FilePath="", Description="", TimeStamp=DateTime.Parse("2017-03-09 09:00:00"), DeadlineDate=DateTime.Parse("2017-04-09 09:00:00"), UserId =  }
+            //};
+            //context.Documents.AddOrUpdate(documents);           
+            //context.SaveChanges();
+
+        
+
             // Get Users Teacher or Student
             foreach (var user in Users)
             {
