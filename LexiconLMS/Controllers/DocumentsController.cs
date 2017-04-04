@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LexiconLMS.Models;
+using Microsoft.AspNet.Identity;
+using System.IO;
+using System.Web.Hosting;
 
 namespace LexiconLMS.Controllers
 {
@@ -20,6 +23,78 @@ namespace LexiconLMS.Controllers
             var documents = db.Documents.Include(d => d.Activity).Include(d => d.Course).Include(d => d.Module);
             return View(documents.ToList());
         }
+
+        public ActionResult DocumentFilter(int? courseid,int? modulid)
+        {
+            if (modulid==null)
+            {
+            IQueryable<Document> document = db.Documents.Where(x => x.CourseId == courseid);
+            ViewBag.courseid = courseid;
+            if (document.Count() != 0)
+            {
+                //ViewBag.modulid = id;
+                //ViewBag.modulname = db.Modules.Where(v => v.CourseId == id).Select(x => x.Name).SingleOrDefault().ToString();
+            }
+            ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+            TempData["courseid"] = courseid;
+            return View("Index", document.ToList());
+
+            }
+            else
+            {
+                IQueryable<Document> document = db.Documents.Where(z => z.CourseId == courseid && z.ModuleId == modulid);
+                ViewBag.courseid = courseid;
+                if (document.Count() != 0)
+                {
+                    //ViewBag.modulid = id;
+                    //ViewBag.modulname = db.Modules.Where(v => v.CourseId == id).Select(x => x.Name).SingleOrDefault().ToString();
+                }
+                ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+                ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
+                TempData["courseid"] = courseid;
+                TempData["modulid"] = modulid;
+                return View("Index", document.ToList());
+
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Upload([Bind(Include = "DocumentId")] Document document, HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    document.UserId = User.Identity.GetUserId();
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/Files"),  fileName);
+                    file.SaveAs(path);
+                    document.DeadlineDate = DateTime.Now;
+                    document.TimeStamp = DateTime.Now;
+                    document.FileName = fileName;
+                    document.FilePath = path;
+                    document.CourseId = Convert.ToInt32(TempData["courseid"]);
+                    document.ModuleId = Convert.ToInt32(TempData["modulid"]);
+                    db.Documents.Add(document);
+                    db.SaveChanges();
+                    return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid= TempData["modulid"] });
+                }
+                ViewBag.Message = "Upload successful";
+                return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"] });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                ViewBag.Message = "Upload failed";
+                return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"] });
+                //  return RedirectToAction("Index");
+            }
+
+        }
+      
+
+      
 
         // GET: Documents/Details/5
         public ActionResult Details(int? id)
@@ -125,7 +200,8 @@ namespace LexiconLMS.Controllers
             Document document = db.Documents.Find(id);
             db.Documents.Remove(document);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"] });
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
