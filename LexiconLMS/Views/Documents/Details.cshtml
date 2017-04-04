@@ -35,11 +35,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DocumentName)
+            @Html.DisplayNameFor(model => model.FileName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DocumentName)
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilePath)
         </dd>
 
         <dt>
@@ -51,19 +59,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Deadline)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.TimeStamp)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeadlineDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeadlineDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
         </dd>
 
     </dl>

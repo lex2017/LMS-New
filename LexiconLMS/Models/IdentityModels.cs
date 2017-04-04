@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace LexiconLMS.Models
 {
@@ -28,6 +29,8 @@ namespace LexiconLMS.Models
         public int CourseId { get; set; }
         [Display(Name = "Kurs")]
         public virtual Course Course {get;set;}
+
+        public virtual ICollection<Document> Documents { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

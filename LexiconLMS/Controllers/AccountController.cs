@@ -81,6 +81,18 @@ namespace LexiconLMS.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    
+                    var user = await UserManager.FindAsync(model.Email, model.Password);
+                    var r = UserManager.GetRoles(user.Id);
+                    if (r[0].ToString() == "Teacher")
+                    {
+                        return RedirectToAction("Index", "Courses");
+                    }
+                    else if (r[0].ToString() == "Student")
+                    {
+                        return RedirectToAction("Studentmodules", "Students");
+                    }
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

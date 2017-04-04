@@ -41,6 +41,8 @@ namespace LexiconLMS.Models
         public virtual ActivityType ActivityType { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
 
+        public virtual ICollection<Document> Documents { get; set; }
+
 
     }
 }

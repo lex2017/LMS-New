@@ -14,8 +14,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Activity.Name)
         </th>
-        <th>@Html.DisplayNameFor(model => model.ApplicationUser.FirstName)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Course.Name)
         </th>
@@ -23,16 +21,22 @@
             @Html.DisplayNameFor(model => model.Module.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DocumentName)
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FilePath)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Deadline)
+            @Html.DisplayNameFor(model => model.TimeStamp)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TimeStamp)
+            @Html.DisplayNameFor(model => model.DeadlineDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
         </th>
         <th></th>
     </tr>
@@ -43,25 +47,28 @@
             @Html.DisplayFor(modelItem => item.Activity.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.FirstName)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Course.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Module.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DocumentName)
+            @Html.DisplayFor(modelItem => item.FileName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FilePath)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Deadline)
+            @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TimeStamp)
+            @Html.DisplayFor(modelItem => item.DeadlineDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.DocumentId }) |
