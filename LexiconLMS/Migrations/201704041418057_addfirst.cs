@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddFirst : DbMigration
+    public partial class addfirst : DbMigration
     {
         public override void Up()
         {
@@ -44,21 +44,21 @@ namespace LexiconLMS.Migrations
                         Description = c.String(),
                         TimeStamp = c.DateTime(nullable: false),
                         DeadlineDate = c.DateTime(nullable: false),
-                        UserId = c.Int(nullable: false),
+                        UserId = c.String(),
                         CourseId = c.Int(),
                         ModuleId = c.Int(),
                         ActivityId = c.Int(),
-                        Users_Id = c.String(maxLength: 128),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.DocumentId)
                 .ForeignKey("dbo.Activities", t => t.ActivityId)
                 .ForeignKey("dbo.Courses", t => t.CourseId)
                 .ForeignKey("dbo.Modules", t => t.ModuleId)
-                .ForeignKey("dbo.AspNetUsers", t => t.Users_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
                 .Index(t => t.CourseId)
                 .Index(t => t.ModuleId)
                 .Index(t => t.ActivityId)
-                .Index(t => t.Users_Id);
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.Courses",
@@ -167,7 +167,7 @@ namespace LexiconLMS.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Documents", "Users_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Documents", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUsers", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Documents", "ModuleId", "dbo.Modules");
@@ -184,7 +184,7 @@ namespace LexiconLMS.Migrations
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUsers", new[] { "CourseId" });
             DropIndex("dbo.Modules", new[] { "CourseId" });
-            DropIndex("dbo.Documents", new[] { "Users_Id" });
+            DropIndex("dbo.Documents", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.Documents", new[] { "ActivityId" });
             DropIndex("dbo.Documents", new[] { "ModuleId" });
             DropIndex("dbo.Documents", new[] { "CourseId" });
