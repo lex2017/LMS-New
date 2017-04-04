@@ -25,7 +25,7 @@ namespace LexiconLMS.Models
         [Display(Name = "Namn")]
         public string Fullname { get { return FirstName + " " + LastName; } }
 
-        public int? CourseId { get; set; }
+        public int CourseId { get; set; }
         [Display(Name = "Kurs")]
         public virtual Course Course {get;set;}
     }
@@ -49,6 +49,8 @@ namespace LexiconLMS.Models
         public System.Data.Entity.DbSet<LexiconLMS.Models.Activity> Activities { get; set; }
 
         public System.Data.Entity.DbSet<LexiconLMS.Models.ActivityType> ActivityTypes { get; set; }
+
+        public System.Data.Entity.DbSet<LexiconLMS.Models.Document> Documents { get; set; }
 
         //public System.Data.Entity.DbSet<LexiconLMS.Models.ApplicationUser> ApplicationUsers { get; set; }
 

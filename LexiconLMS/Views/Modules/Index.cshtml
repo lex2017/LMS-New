@@ -3,9 +3,12 @@
 @{
     ViewBag.Title = "Moduler";
 }
-<h4>Kursnamn: <span class="alert-info">@ViewBag.coursename</span></h4>
+@if (ViewBag.coursename != null)
+{
+    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Modular</b></h4>
+}
 <p>
-    @Html.ActionLink("Lägg till", "Create")
+    @Html.ActionLink("Lägg till", "Create",new { courseid = ViewBag.courseid ,coursename=ViewBag.coursename })
 </p>
 <div>
     @using (Html.BeginForm("Index", "Modules", FormMethod.Get))
@@ -38,33 +41,36 @@
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
 
-                <th></th>
-            </tr>
-        </thead>
-        @foreach (var item in Model)
-        {
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </td>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
 
-                    <td>
-                        @Html.ActionLink("Aktiviteter", "ActivityFilter", "Activities", new { id = item.ModuleID }, null) |
-                        @Html.ActionLink("Ändra", "Edit", new { id = item.ModuleID }) |
-                        @*@Html.ActionLink("Detaljer", "Details", new { id = item.ModuleID }) |*@
-                        @Html.ActionLink("Ta bort", "Delete", new { id = item.ModuleID })
-                    </td>
-                </tr>
-            </tbody>
-        }
-    </table>
+                <td>
+                    @Html.ActionLink("Aktiviteter", "ActivityFilter", "Activities", new { modulid = item.ModuleID }, null) |
+                    @Html.ActionLink("Ändra", "Edit", new { id = item.ModuleID , courseid = ViewBag.courseid }) |
+                   @* @Html.ActionLink("Detaljer", "Details", new { id = item.ModuleID }) |*@
+                    @Html.ActionLink("Ta bort", "Delete", new { id = item.ModuleID })
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+<div>
+    @Html.ActionLink("Tillbaka till kurser", "Index", "Courses")
+</div>

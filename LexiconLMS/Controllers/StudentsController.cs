@@ -57,7 +57,7 @@ namespace LexiconLMS.Controllers
             setCourseInfo(courseid);
             ViewBag.coursename = db.Courses.Where(b => b.CourseID == courseid).Select(b => b.Name).SingleOrDefault();
             var modules = db.Modules.Where(x => x.CourseId == courseid).Select(v => v.ModuleID);
-            var activities = db.Activities.Where(p => modules.Contains(p.ModuleId.Value));
+            var activities = db.Activities.Where(p => modules.Contains(p.ModuleId));
             return View(activities.ToList());
         }
         public ActionResult ActivityFilter(int? id)

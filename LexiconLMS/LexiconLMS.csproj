@@ -174,6 +174,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\DocumentLoadController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageTeachersController.cs" />
@@ -183,15 +185,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703311136391_AddTest.cs" />
-    <Compile Include="Migrations\201703311136391_AddTest.Designer.cs">
-      <DependentUpon>201703311136391_AddTest.cs</DependentUpon>
+    <Compile Include="Migrations\201704021949402_addfirst.cs" />
+    <Compile Include="Migrations\201704021949402_addfirst.Designer.cs">
+      <DependentUpon>201704021949402_addfirst.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ActivityType.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Document.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Module.cs" />
@@ -298,9 +301,15 @@
     <Content Include="Views\ManageTeachers\Index.cshtml" />
     <Content Include="Views\Students\Activitylist.cshtml" />
     <Content Include="Views\Students\ActivityFilter.cshtml" />
+    <Content Include="Views\Documents\Create.cshtml" />
+    <Content Include="Views\Documents\Delete.cshtml" />
+    <Content Include="Views\Documents\Details.cshtml" />
+    <Content Include="Views\Documents\Edit.cshtml" />
+    <Content Include="Views\Documents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DocumentLoad\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -311,8 +320,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703311136391_AddTest.resx">
-      <DependentUpon>201703311136391_AddTest.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704021949402_addfirst.resx">
+      <DependentUpon>201704021949402_addfirst.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

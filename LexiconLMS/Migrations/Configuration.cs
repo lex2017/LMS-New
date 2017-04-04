@@ -148,36 +148,36 @@ namespace LexiconLMS.Migrations
                 new Module { Name="Netbeans", Description="AGrundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), CourseId=2 },
                 new Module { Name="Angular", Description="BGrundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), CourseId=1 },
 
-                new Module { Name="C#", Description="Introduktion", StartDate = DateTime.Parse("2016-12-19 09:00:00"), EndDate=DateTime.Parse("2017-01-17 09:00:00"), CourseId=4 },
-                new Module { Name="Webb", Description="Introduktion", StartDate = DateTime.Parse("2017-01-18 09:00:00"), EndDate=DateTime.Parse("2017-01-31 09:00:00"), CourseId=4 },
-                new Module { Name="MVC", Description="Introduktion", StartDate = DateTime.Parse("2017-02-01 09:00:00"), EndDate=DateTime.Parse("2017-02-14 09:00:00"), CourseId=4 },
-                new Module { Name="Databas", Description="Introduktion", StartDate = DateTime.Parse("2017-02-15 09:00:00"), EndDate=DateTime.Parse("2017-02-21 09:00:00"), CourseId=4 },
-                new Module { Name="Testning", Description="Introduktion", StartDate = DateTime.Parse("2017-02-22 09:00:00"), EndDate=DateTime.Parse("2017-03-01 09:00:00"), CourseId=4 },
-                new Module { Name="App.utv", Description="Introduktion", StartDate = DateTime.Parse("2017-03-02 09:00:00"), EndDate=DateTime.Parse("2017-03-08 09:00:00"), CourseId=4 },
-                new Module { Name="MVC fördj", Description="Introduktion", StartDate = DateTime.Parse("2017-03-09 09:00:00"), EndDate=DateTime.Parse("2017-04-11 09:00:00"), CourseId=4 },
+           //     new Module { Name="C#", Description="Introduktion", StartDate = DateTime.Parse("2016-12-19 09:00:00"), EndDate=DateTime.Parse("2017-01-17 09:00:00"), CourseId=4 },
+           //     new Module { Name="Webb", Description="Introduktion", StartDate = DateTime.Parse("2017-01-18 09:00:00"), EndDate=DateTime.Parse("2017-01-31 09:00:00"), CourseId=4 },
+           //     new Module { Name="MVC", Description="Introduktion", StartDate = DateTime.Parse("2017-02-01 09:00:00"), EndDate=DateTime.Parse("2017-02-14 09:00:00"), CourseId=4 },
+           //     new Module { Name="Databas", Description="Introduktion", StartDate = DateTime.Parse("2017-02-15 09:00:00"), EndDate=DateTime.Parse("2017-02-21 09:00:00"), CourseId=4 },
+           //     new Module { Name="Testning", Description="Introduktion", StartDate = DateTime.Parse("2017-02-22 09:00:00"), EndDate=DateTime.Parse("2017-03-01 09:00:00"), CourseId=4 },
+           //     new Module { Name="App.utv", Description="Introduktion", StartDate = DateTime.Parse("2017-03-02 09:00:00"), EndDate=DateTime.Parse("2017-03-08 09:00:00"), CourseId=4 },
+           //     new Module { Name="MVC fördj", Description="Introduktion", StartDate = DateTime.Parse("2017-03-09 09:00:00"), EndDate=DateTime.Parse("2017-04-11 09:00:00"), CourseId=4 },
             };
             context.Modules.AddOrUpdate(modules);
             context.SaveChanges();
 
             var ActivityType = new[]
            {
-                new ActivityType { TypeName="Föreläsning"},
-                new ActivityType { TypeName="E-learning" },
-                new ActivityType { TypeName="Övning"},
-                new ActivityType { TypeName="Övrigt"}
-            };
+                 new ActivityType { TypeName="Föreläsning"},
+                 new ActivityType { TypeName="E-learning" },
+                 new ActivityType { TypeName="Övning"},
+                 new ActivityType { TypeName="Övrigt"}
+             };
             context.ActivityTypes.AddOrUpdate(ActivityType);
             context.SaveChanges();
-            var activity = new[]
-            {
-                new Activity { Name="OOP", Description="grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1,ActivityTypeID=1},
-                new Activity { Name="C# Core", Description="grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=2,ActivityTypeID=2},
-                new Activity { Name="HTML", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=2},
-                new Activity { Name="CSS", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=1},
-                new Activity { Name="Garage 1.0", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=1 }
-            };
-            context.Activities.AddOrUpdate(activity);
-            context.SaveChanges();
+            // var activity = new[]
+            // {
+            //     new Activity { Name="OOP", Description="grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1,ActivityTypeID=1},
+            //     new Activity { Name="C# Core", Description="grundläggande", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=2,ActivityTypeID=2},
+            //     new Activity { Name="HTML", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=2},
+            //     new Activity { Name="CSS", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=1},
+            //     new Activity { Name="Garage 1.0", Description="Garage first", StartDate = DateTime.Parse("2017-04-01 09:00:00"), EndDate=DateTime.Parse("2017-08-31 09:00:00"), ModuleId=1 ,ActivityTypeID=1 }
+            // };
+            // context.Activities.AddOrUpdate(activity);
+            // context.SaveChanges();
 
 
             // Get Users Teacher or Student

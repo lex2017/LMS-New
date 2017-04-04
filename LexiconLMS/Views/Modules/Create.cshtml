@@ -3,8 +3,10 @@
 @{
     ViewBag.Title = "Lägg till";
 }
-
-<h2>@ViewBag.Title</h2>
+@if (ViewBag.coursename != null)
+{
+    <h4>Lägg till modul i Kursen: <span class="alert-info">@ViewBag.coursename</span></h4>
+}
 
 
 @using (Html.BeginForm())
@@ -12,7 +14,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Modul</h4>
+       
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -48,16 +50,6 @@
         </div>
 
         <div class="form-group">
-            @*@Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })*@
-            @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.EditorFor(model => model.CourseId, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.DropDownList("CourseId", ViewBag.Courses as SelectList, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Spara" class="btn btn-default" />
             </div>
@@ -66,7 +58,7 @@
 }
 
 <div>
-    @Html.ActionLink("Tillbaka till listan", "Index")
+    @Html.ActionLink("Tillbaka till listan", "ModuleFilter", "Modules", new { courseid = ViewBag.courseid }, null)
 </div>
 
 @section Scripts {
