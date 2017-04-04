@@ -1,81 +1,64 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Document>
-
-@{
-    ViewBag.Title = "Index";
+    @{
+        ViewBag.Title = "Dokument";
+    }
+@if (ViewBag.coursename != null)
+{
+    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Dokument</b></h4>
 }
+@*@if (ViewBag.modulname != null)
+{
+    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Modul", "ModuleFilter", "Modules", new { courseid = @ViewBag.courseid }): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Dokument</b></h4>
+}*@
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Activity.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Course.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Module.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FilePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeadlineDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th></th>
-    </tr>
+    @using (Html.BeginForm("Upload", "Documents",FormMethod.Post,
+                                                    new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Activity.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Module.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FilePath)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeStamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeadlineDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DocumentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DocumentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DocumentId })
-        </td>
-    </tr>
-}
+        <div class="form-group">
+            <fieldset>
+                Upload a file
+                <div class="editor-field">
+                    @Html.TextBox("file", "", new { type = "file" })
+                </div>
+                <div class="editor-field">
+                    <input type="submit" value="Upload" />
+                </div>
+            </fieldset>
+        </div>
+    }
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
 
-</table>
+
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Download", "Download", new { FileId = item.DocumentId })
+
+                </td>
+                <td>
+                    @Html.ActionLink("Ta bort", "Delete", new { id = item.DocumentId })
+                </td>
+</tr>
+        }
+    </table>
