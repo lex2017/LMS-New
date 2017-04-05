@@ -7,7 +7,8 @@
     @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
         <link href="~/Content/Site.css" rel="stylesheet" />
-
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @*<link href="~/Content/bootstrap1.css" rel="stylesheet" />*@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -29,8 +30,8 @@
                 @if (User.IsInRole("Teacher"))
                 {
                     <li>@Html.ActionLink("Kurser", "Index", "Courses")</li>
-                    @*<li>@Html.ActionLink("Moduler", "Index", "Modules")</li>
-                    <li>@Html.ActionLink("Aktiviteter", "Index", "Activities")</li>*@
+                    <li>@Html.ActionLink("Dokuments", "Index", "Documents")</li>
+                    <li>@*@Html.ActionLink("Aktiviteter", "Index", "Activities")*@</li>
                     <li>@Html.ActionLink("Elever", "Index", "ManageStudents")</li>
                     <li>@Html.ActionLink("Lärare", "Index", "ManageTeachers")</li>
 
