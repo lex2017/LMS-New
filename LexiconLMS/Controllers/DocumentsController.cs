@@ -49,7 +49,7 @@ namespace LexiconLMS.Controllers
             }
             else
             {
-                IQueryable<Document> document = db.Documents.Where(z => z.CourseId == courseid && z.ModuleId == modulid || z.ActivityId == activityid);
+                IQueryable<Document> document = db.Documents.Where(z => z.CourseId == courseid && z.ModuleId == modulid && z.ActivityId == activityid);
                 ViewBag.courseid = courseid;
                 ViewBag.modulid = modulid;
                 ViewBag.activityid = activityid;

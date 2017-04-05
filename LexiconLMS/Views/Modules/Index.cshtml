@@ -62,7 +62,7 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Aktiviteter", "ActivityFilter", "Activities", new { modulid = item.ModuleID }, null) |
+                    @Html.ActionLink("Aktiviteter", "ActivityFilter", "Activities", new { modulid = item.ModuleID , courseid = item.CourseId }, null) |
                     @Html.ActionLink("Ändra", "Edit", new { id = item.ModuleID , courseid = ViewBag.courseid }) |
                    @* @Html.ActionLink("Detaljer", "Details", new { id = item.ModuleID }) |*@
                     @Html.ActionLink("Dokument", "DocumentFilter", "documents", new { modulid = item.ModuleID ,courseid = item.CourseId}, null) |
