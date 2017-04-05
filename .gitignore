@@ -240,3 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/LexiconLMS/Migrations/201704021150019_Addtest.cs
+/LexiconLMS/Migrations/201704021150019_Addtest.Designer.cs
+/LexiconLMS/Migrations/201704021150019_Addtest.resx

@@ -29,8 +29,8 @@ namespace LexiconLMS.Controllers
             }
             return View(db.Activities.ToList());
         }
-
-        public ActionResult ActivityFilter(int? modulid)
+       
+        public ActionResult ActivityFilter(int?courseidint,int? modulid,int? activityid)
         {
 
             //ViewBag.id = id;
@@ -91,6 +91,7 @@ namespace LexiconLMS.Controllers
                 TempData["successmessage"] = "Aktiviteten " + activity.Name + " har lagts till!";
                 //return RedirectToAction("Index");
                 return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
+                
             }
             MakeCreateDropDown(activity);
             ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");

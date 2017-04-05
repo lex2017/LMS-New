@@ -1,24 +1,11 @@
-﻿@model IEnumerable<LexiconLMS.Models.ApplicationUser>
-
+﻿﻿@model IEnumerable<LexiconLMS.Models.ApplicationUser>
 @{
     ViewBag.Title = "Elever";
 }
-
 <h2>@ViewBag.Title</h2>
-
 @*<p>
-    @Html.ActionLink("Lägg till", "Register","Account")
-</p>*@
-
-@*<p>
-    @if (TempData["successmessage"] != null)
-    {
-        <div class="alert alert-success fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            @TempData["successmessage"]
-        </div>
-    }
-</p>*@
+        @Html.ActionLink("Lägg till", "Register", "Account")
+    </p>*@
 <div>
     @using (Html.BeginForm("Index", "ManageStudents", FormMethod.Get))
     {

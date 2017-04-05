@@ -18,12 +18,9 @@ namespace LexiconLMS.Models
         [Display(Name = "Uppladdat")]
         public DateTime TimeStamp { get; set; }
         [Display(Name = "Inlämnas senast")]
-        public DateTime? DeadlineDate { get; set; }
-        //public Guid UserId { get; set; }      
-
+        public DateTime DeadlineDate { get; set; }
         public string UserId { get; set; }
-        [Display(Name = "Uppladdat av")]
-        public virtual ApplicationUser User { get; set; }
+
 
         public int? CourseId { get; set; }
         [Display(Name = "Kurs")]
@@ -34,6 +31,7 @@ namespace LexiconLMS.Models
         public int? ActivityId { get; set; }
         [Display(Name = "Aktivitet")]
         public virtual Activity Activity { get; set; }
+        public int FileId { get; set; }
 
     }
 }
