@@ -30,6 +30,7 @@ namespace LexiconLMS.Models
         public int? ActivityId { get; set; }
         [Display(Name = "Aktivitet")]
         public virtual Activity Activity { get; set; }
-      
+        public int FileId { get; set; }
+
     }
 }

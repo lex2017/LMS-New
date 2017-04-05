@@ -25,6 +25,7 @@ namespace LexiconLMS.Controllers
             return View(documents.ToList());
         }
 
+
         public ActionResult DocumentFilter(int? courseid, int? modulid, int? activityid)
         {
             if (courseid != null && modulid == null && activityid == null)
@@ -80,7 +81,8 @@ namespace LexiconLMS.Controllers
                     file.SaveAs(path);
                     document.DeadlineDate = DateTime.Now;
                     document.TimeStamp = DateTime.Now;
-                    document.FileName = document.DocumentId + " " + fileName;
+                    //document.FileName = document.DocumentId + " " + fileName;
+                    document.FileName =fileName;
                     document.FilePath = path;
                     document.CourseId = Convert.ToInt32(TempData["courseid"]);
                     if (TempData["modulid"] != null)
@@ -111,7 +113,9 @@ namespace LexiconLMS.Controllers
         public FilePathResult GetFileFromDisk(int documenid)
         {
             string fileName = db.Documents.Where(z => z.DocumentId == documenid).Select(x => x.FileName).SingleOrDefault();
-            return File("~/Files", MediaTypeNames.Text.Plain, fileName);
+            //int lengthToRemove = documenid.ToString().Length;
+            //fileName = fileName.Remove(0,lengthToRemove).Trim();
+            return File("~/Files/"+fileName, MediaTypeNames.Text.Plain, fileName);
         }
 
 

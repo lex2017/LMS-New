@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Document>
-    @{
-        ViewBag.Title = "Dokument";
-    }
+@{
+    ViewBag.Title = "Dokument";
+}
 @if (ViewBag.coursename != null)
 {
     <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Dokument</b></h4>
 }
-@*@if (ViewBag.modulname != null)
-{
-    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Modul", "ModuleFilter", "Modules", new { courseid = @ViewBag.courseid }): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Dokument</b></h4>
-}*@
+    @*@if (ViewBag.modulname != null)
+        {
+            <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Modul", "ModuleFilter", "Modules", new { courseid = @ViewBag.courseid }): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Dokument</b></h4>
+        }*@
 
 
-    @using (Html.BeginForm("Upload", "Documents",FormMethod.Post,
-                                                    new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Upload", "Documents", FormMethod.Post,
+                                                            new { enctype = "multipart/form-data", courseid = ViewBag.courseid, modulid = ViewBag.modulid }))
     {
         @Html.AntiForgeryToken()
 
@@ -29,36 +29,34 @@
             </fieldset>
         </div>
     }
-    <table class="table table-striped">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DocumentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FileName)
-            </th>
-
-
-            <th></th>
-        </tr>
+    <table class="table table-striped sortable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DocumentId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FileName)
+                </th>
+            </tr>
+        </thead>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DocumentId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FileName)
-                </td>
-
-
-                <td>
-                    @Html.ActionLink("Download", "Download", new { FileId = item.DocumentId })
-
-                </td>
-                <td>
-                    @Html.ActionLink("Ta bort", "Delete", new { id = item.DocumentId })
-                </td>
-</tr>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Download", "GetFileFromDisk", new { documenid = item.DocumentId })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Ta bort", "Delete", new { id = item.DocumentId })
+                    </td>
+                </tr>
+            </tbody>
         }
     </table>
