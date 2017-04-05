@@ -11,6 +11,15 @@
     @Html.ActionLink("Lägg till", "Create")
 </p>
 
+@*<p>
+    @if (TempData["successmessage"] != null)
+    {
+        <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            @TempData["successmessage"]
+        </div>
+    }
+</p>*@
 <div>
     @using (Html.BeginForm("Index", "Courses", FormMethod.Get))
     {

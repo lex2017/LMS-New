@@ -82,6 +82,7 @@ namespace LexiconLMS.Controllers
                 student.UserName = student.Email;
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["successmessage"] = "Information om eleven " + student.Fullname + " har ändrats!";
                 return RedirectToAction("Index");
             }
             ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name", student.CourseId);
@@ -111,6 +112,7 @@ namespace LexiconLMS.Controllers
             ApplicationUser student = db.Users.Find(id);
             db.Users.Remove(student);
             db.SaveChanges();
+            TempData["successmessage"] = "Eleven " + student.Fullname + " har tagits bort!";
             return RedirectToAction("Index");
         }
 

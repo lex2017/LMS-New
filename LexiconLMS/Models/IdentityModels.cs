@@ -26,7 +26,8 @@ namespace LexiconLMS.Models
         [Display(Name = "Namn")]
         public string Fullname { get { return FirstName + " " + LastName; } }
 
-        public int CourseId { get; set; }
+        [Display(Name = "Kurs")]
+        public int? CourseId { get; set; }
         [Display(Name = "Kurs")]
         public virtual Course Course {get;set;}
 

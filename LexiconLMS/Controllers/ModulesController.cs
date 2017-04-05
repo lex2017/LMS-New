@@ -87,6 +87,7 @@ namespace LexiconLMS.Controllers
                 //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
                 db.Modules.Add(module);
                 db.SaveChanges();
+                TempData["successmessage"] = "Modulen " + module.Name + " har lagts till!";
                 //return RedirectToAction("Index");
                 return RedirectToAction("ModuleFilter", new { courseid = module.CourseId });
             }
@@ -123,6 +124,8 @@ namespace LexiconLMS.Controllers
                 module.CourseId = courseid;
                 db.Entry(module).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["successmessage"] = "Modulen " + module.Name + " har ändrats!";
                 return RedirectToAction("ModuleFilter", new { courseid = module.CourseId });
                 //return RedirectToAction("Index");
             }
@@ -153,6 +156,7 @@ namespace LexiconLMS.Controllers
             Module module = db.Modules.Find(id);
             db.Modules.Remove(module);
             db.SaveChanges();
+            TempData["successmessage"] = "Modulen " + module.Name + " har tagits bort!";
             return RedirectToAction("Index", "Courses");
             //return RedirectToAction("Index");
         }

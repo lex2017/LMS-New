@@ -170,12 +170,12 @@ namespace LexiconLMS.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 if (model.CourseID==null)
                 {
                     model.CourseID = 3;
                 }
-                
+
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,PhoneNumber=model.PhoneNumber,CourseId=model.CourseID.Value };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -189,6 +189,19 @@ namespace LexiconLMS.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                                      
+                    var r = UserManager.GetRoles(user.Id);
+                    if (r[0].ToString() == "Teacher")
+                    {
+                        TempData["successmessage"] = "Läraren " + model.FirstName + " " + model.LastName + " har registrerats!";
+                        return RedirectToAction("Index", "ManageTeachers");
+                    }
+                    else if (r[0].ToString() == "Student")
+                    {
+                        TempData["successmessage"] = "Eleven " + model.FirstName + " " + model.LastName + " har registrerats!";
+                        return RedirectToAction("Index", "ManageStudents");
+                    }
+                   
                     return RedirectToAction("Index", "Home");
                 }
                 //ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name", user.CourseId);

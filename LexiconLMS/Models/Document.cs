@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,12 +15,15 @@ namespace LexiconLMS.Models
         public string FilePath { get; set; }
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
-        [Display(Name = "Uppladdad")]
+        [Display(Name = "Uppladdat")]
         public DateTime TimeStamp { get; set; }
         [Display(Name = "Inlämnas senast")]
-        public DateTime DeadlineDate { get; set; }
-        public int UserId { get; set; }
-        public virtual ApplicationUser Users { get; set; }
+        public DateTime? DeadlineDate { get; set; }
+        //public Guid UserId { get; set; }      
+
+        public string UserId { get; set; }
+        [Display(Name = "Uppladdat av")]
+        public virtual ApplicationUser User { get; set; }
 
         public int? CourseId { get; set; }
         [Display(Name = "Kurs")]

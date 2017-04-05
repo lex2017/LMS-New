@@ -1,13 +1,13 @@
 ﻿@model LexiconLMS.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "Detaljer";
+    ViewBag.Title = "Elev - Detaljer";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Student</h4>
+    @*<h4>Student</h4>*@
     <hr />
     <dl class="dl-horizontal">
 
@@ -36,23 +36,22 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-    
-
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
+            @Html.LabelFor(model => model.PhoneNumber, "Telefonnummer")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.UserName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.UserName)
-        </dd>
+        </dd>*@
         <dt>
             @Html.DisplayNameFor(model => model.Course.Name)
         </dt>
@@ -64,5 +63,5 @@
 </div>
 <p>
     @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Tillbaka till lista", "Index")
+    @Html.ActionLink("Tillbaka till listan", "Index")
 </p>

@@ -4,7 +4,7 @@
 }
 @if (ViewBag.coursename != null)
 {
-    <h4>Lägg till activity i modulen: <span class="alert-info">@ViewBag.modulname</span> kursen: <span class="alert-info">@ViewBag.coursename</span></h4>
+    <h4>Lägg till aktivitet i modul <span class="alert-info">@ViewBag.modulname</span> i kursen <span class="alert-info">@ViewBag.coursename</span></h4>
 }
 
 
@@ -53,13 +53,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Lägg till" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 <div>
-    @Html.ActionLink("Tillbaka till Aktiviteter", "ActivityFilter", "Activities", new { modulid = ViewBag.modulid }, null)
+    @Html.ActionLink("Tillbaka till listan", "ActivityFilter", "Activities", new { modulid = ViewBag.modulid }, null)
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

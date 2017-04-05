@@ -5,11 +5,20 @@
 }
 @if (ViewBag.coursename != null)
 {
-    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Modular</b></h4>
+    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Moduler</b></h4>
 }
 <p>
     @Html.ActionLink("Lägg till", "Create",new { courseid = ViewBag.courseid ,coursename=ViewBag.coursename })
 </p>
+@*<p>
+    @if (TempData["successmessage"] != null)
+    {
+        <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            @TempData["successmessage"]
+        </div>
+    }
+</p>*@
 <div>
     @using (Html.BeginForm("Index", "Modules", FormMethod.Get))
     {

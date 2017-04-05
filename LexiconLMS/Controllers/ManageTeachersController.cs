@@ -19,15 +19,15 @@ namespace LexiconLMS.Controllers
         {
 
             var role = db.Roles.SingleOrDefault(m => m.Name == "Teacher").Id;
-            var students = db.Users.Where(u => u.Roles.Any(r => r.RoleId == role));
+            var teachers = db.Users.Where(u => u.Roles.Any(r => r.RoleId == role));
             if (!String.IsNullOrEmpty(searchString))
             {
-                students = students.Where(s => s.FirstName.Contains(searchString)
+                teachers = teachers.Where(s => s.FirstName.Contains(searchString)
                                               || s.LastName.Contains(searchString) || s.UserName.Contains(searchString));
 
-                return View(students.ToList());
+                return View(teachers.ToList());
             }
-            return View(students.ToList());
+            return View(teachers.ToList());
         }
 
         // GET: Students/Details/5
@@ -53,13 +53,13 @@ namespace LexiconLMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser student = db.Users.Find(id);
-            if (student == null)
+            ApplicationUser teacher = db.Users.Find(id);
+            if (teacher == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name", student.CourseId);
-            return View(student);
+            //ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name", teacher.CourseId);
+            return View(teacher);
         }
 
         // POST: Students/Edit/5
@@ -67,19 +67,20 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,CourseId,Email,PhoneNumber")] ApplicationUser student)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,CourseId,Email,PhoneNumber")] ApplicationUser teacher)
         {
             if (ModelState.IsValid)
             {
-                student.PasswordHash = db.Users.AsNoTracking().FirstOrDefault(z => z.Id == student.Id).PasswordHash;
-                student.SecurityStamp = db.Users.AsNoTracking().FirstOrDefault(z => z.Id == student.Id).SecurityStamp;
-                student.UserName = student.Email;
-                db.Entry(student).State = EntityState.Modified;
+                teacher.PasswordHash = db.Users.AsNoTracking().FirstOrDefault(z => z.Id == teacher.Id).PasswordHash;
+                teacher.SecurityStamp = db.Users.AsNoTracking().FirstOrDefault(z => z.Id == teacher.Id).SecurityStamp;
+                teacher.UserName = teacher.Email;
+                db.Entry(teacher).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["successmessage"] = "Information om läraren " + teacher.Fullname + " har ändrats!";
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name", student.CourseId);
-            return View(student);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseID", "Name", teacher.CourseId);
+            return View(teacher);
         }
 
         // GET: Students/Delete/5
@@ -89,12 +90,12 @@ namespace LexiconLMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser student = db.Users.Find(id);
-            if (student == null)
+            ApplicationUser teacher = db.Users.Find(id);
+            if (teacher == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(teacher);
         }
 
         // POST: Students/Delete/5
@@ -102,9 +103,10 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser student = db.Users.Find(id);
-            db.Users.Remove(student);
+            ApplicationUser teacher = db.Users.Find(id);
+            db.Users.Remove(teacher);
             db.SaveChanges();
+            TempData["successmessage"] = "Läraren " + teacher.Fullname + " har tagits bort!";
             return RedirectToAction("Index");
         }
 

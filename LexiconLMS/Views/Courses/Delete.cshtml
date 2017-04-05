@@ -1,14 +1,14 @@
 ﻿@model LexiconLMS.Models.Course
 
 @{
-    ViewBag.Title = "Ta bort";
+    ViewBag.Title = "Kurs - Ta bort";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <h3>Är du säker på att du vill ta bort kursen?</h3>
 <div>
-    <h4>Kurs</h4>
+    @*<h4>Kurs</h4>*@
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -50,7 +50,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Ta bort" class="btn btn-default" /> |
-            @Html.ActionLink("Tillbaka till lista", "Index")
+            @Html.ActionLink("Tillbaka till listan", "Index")
         </div>
     }
 </div>

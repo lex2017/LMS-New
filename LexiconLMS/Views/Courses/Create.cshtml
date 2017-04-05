@@ -1,7 +1,7 @@
 ﻿@model LexiconLMS.Models.Course
 
 @{
-    ViewBag.Title = "Skapa Kurs";
+    ViewBag.Title = "Kurs - Lägg till";
 }
 
 <h3>@ViewBag.Title</h3>
@@ -49,14 +49,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Lägg till" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Tillbaka till lista", "Index")
+    @Html.ActionLink("Tillbaka till listan", "Index")
 </div>
 
 @section Scripts {
