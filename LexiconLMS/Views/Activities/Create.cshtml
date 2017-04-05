@@ -4,7 +4,7 @@
 }
 @if (ViewBag.coursename != null)
 {
-    <h4>Lägg till aktivitet i modul <span class="alert-info">@ViewBag.modulname</span> i kursen <span class="alert-info">@ViewBag.coursename</span></h4>
+    <h4>Lägg till aktivitet i modulen <span class="alert-info">@ViewBag.modulname</span> i kursen <span class="alert-info">@ViewBag.coursename</span></h4>
 }
 
 
@@ -23,7 +23,8 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.Label("ActivityType",  new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(model => model.ActivityType.TypeName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.Label("ActivityType",  new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10">
                 @Html.DropDownList("ActivityTypeID", (SelectList)ViewBag.ActivityType, " ", new { @class = "form-control" })
             </div>

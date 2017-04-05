@@ -54,3 +54,73 @@
     }
 
 </table>
+
+
+@*<div class="panel-group" id="accordion">
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#@item.ModuleID">
+                        <b>@Html.DisplayFor(m => item.Name)</b>
+                    </a>
+                </h4>
+            </div>
+            <div id="@item.ModuleID" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table table-hover sortable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.First().Activities.First().ActivityType.TypeName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.First().Activities.First().Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.First().Activities.First().Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.First().Activities.First().StartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.First().Activities.First().EndDate)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var subItem in item.Activities)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(m => subItem.ActivityType.TypeName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => subItem.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => subItem.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => subItem.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => @subItem.EndDate)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>*@
+
+
+
+
+
+

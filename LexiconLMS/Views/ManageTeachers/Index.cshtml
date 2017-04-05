@@ -1,6 +1,6 @@
 ﻿﻿@model IEnumerable<LexiconLMS.Models.ApplicationUser>
 @{
-    ViewBag.Title = "Students";
+    ViewBag.Title = "Lärare";
 }
 <h2>@ViewBag.Title</h2>
 @*<p>
@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.Fullname)
             </th>
             <th>
-                Kursnman
+                @Html.DisplayNameFor(model => model.Course.Name)
             </th>
             <th></th>
         </tr>

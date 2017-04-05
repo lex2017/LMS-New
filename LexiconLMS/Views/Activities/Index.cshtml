@@ -97,7 +97,7 @@
                     @Html.ActionLink("Ändra", "Edit", new { id = item.ActivityId, modulid = ViewBag.modulid, coursename = ViewBag.coursename }) |
                     @Html.ActionLink("Dokument", "DocumentFilter", "documents", new { courseid = ViewBag.courseid, modulid = ViewBag.modulid, activityid = item.ActivityId}, null) |
 
-                    §@*  @Html.ActionLink("Detaljer", "Details", new { id = item.ActivityId }) |*@
+                    @*  @Html.ActionLink("Detaljer", "Details", new { id = item.ActivityId }) |*@
                     @Html.ActionLink("Ta bort", "Delete", new { id = item.ActivityId, modulid = ViewBag.modulid })
                 </td>
             </tr>
