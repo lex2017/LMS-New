@@ -11,15 +11,14 @@
 <table class="table table-hover sortable">
     <thead>
         <tr>
-
+            <th>
+                @Html.DisplayNameFor(model => model.Module.Name)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ActivityType.TypeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Module.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -38,15 +37,14 @@
 {
     <tbody>
         <tr>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.Module.Name)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ActivityType.TypeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Module.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
