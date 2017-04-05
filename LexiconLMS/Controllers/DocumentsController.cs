@@ -10,6 +10,7 @@ using LexiconLMS.Models;
 using Microsoft.AspNet.Identity;
 using System.IO;
 using System.Web.Hosting;
+using System.Net.Mime;
 
 namespace LexiconLMS.Controllers
 {
@@ -24,37 +25,44 @@ namespace LexiconLMS.Controllers
             return View(documents.ToList());
         }
 
-        public ActionResult DocumentFilter(int? courseid,int? modulid)
+        public ActionResult DocumentFilter(int? courseid, int? modulid, int? activityid)
         {
-            if (modulid==null)
+            if (courseid != null && modulid == null && activityid == null)
             {
-            IQueryable<Document> document = db.Documents.Where(x => x.CourseId == courseid);
-            ViewBag.courseid = courseid;
-            if (document.Count() != 0)
-            {
-                //ViewBag.modulid = id;
-                //ViewBag.modulname = db.Modules.Where(v => v.CourseId == id).Select(x => x.Name).SingleOrDefault().ToString();
-            }
-            ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
-            TempData["courseid"] = courseid;
-            return View("Index", document.ToList());
+                IQueryable<Document> document = db.Documents.Where(x => x.CourseId == courseid);
+                ViewBag.courseid = courseid;
+                ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+                TempData["courseid"] = courseid;
+                return View("Index", document.ToList());
 
             }
-            else
+            else if (courseid != null && modulid != null && activityid == null)
             {
                 IQueryable<Document> document = db.Documents.Where(z => z.CourseId == courseid && z.ModuleId == modulid);
                 ViewBag.courseid = courseid;
-                if (document.Count() != 0)
-                {
-                    //ViewBag.modulid = id;
-                    //ViewBag.modulname = db.Modules.Where(v => v.CourseId == id).Select(x => x.Name).SingleOrDefault().ToString();
-                }
+                ViewBag.modulid = modulid;
                 ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
                 ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
                 TempData["courseid"] = courseid;
                 TempData["modulid"] = modulid;
                 return View("Index", document.ToList());
+            }
+            else
+            {
+                IQueryable<Document> document = db.Documents.Where(z => z.CourseId == courseid && z.ModuleId == modulid || z.ActivityId == activityid);
+                ViewBag.courseid = courseid;
+                ViewBag.modulid = modulid;
+                ViewBag.activityid = activityid;
+                ViewBag.activity = activityid; // For show in view
+                ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+                ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
+                ViewBag.activityname = db.Activities.Where(v => v.ActivityId == activityid).Select(x => x.Name).SingleOrDefault().ToString();
 
+                TempData["courseid"] = courseid;
+                TempData["modulid"] = modulid;
+                TempData["activityid"] = activityid;
+
+                return View("Index", document.ToList());
 
             }
         }
@@ -68,33 +76,45 @@ namespace LexiconLMS.Controllers
                 {
                     document.UserId = User.Identity.GetUserId();
                     var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/Files"),  fileName);
+                    var path = Path.Combine(Server.MapPath("~/Files"), fileName);
                     file.SaveAs(path);
                     document.DeadlineDate = DateTime.Now;
                     document.TimeStamp = DateTime.Now;
-                    document.FileName = fileName;
+                    document.FileName = document.DocumentId + " " + fileName;
                     document.FilePath = path;
                     document.CourseId = Convert.ToInt32(TempData["courseid"]);
-                    document.ModuleId = Convert.ToInt32(TempData["modulid"]);
+                    if (TempData["modulid"] != null)
+                    {
+                        document.ModuleId = Convert.ToInt32(TempData["modulid"]);
+                    }
+                    if (TempData["activityid"] != null)
+                    {
+                        document.ActivityId = Convert.ToInt32(TempData["activityid"]);
+                    }
                     db.Documents.Add(document);
                     db.SaveChanges();
-                    return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid= TempData["modulid"] });
+                    return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"], activityid= TempData["activityid"]  });
                 }
                 ViewBag.Message = "Upload successful";
-                return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"] });
+                return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"] , activityid = TempData["activityid"] });
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 ViewBag.Message = "Upload failed";
-                return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"] });
+                return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"] , activityid = TempData["activityid"] });
                 //  return RedirectToAction("Index");
             }
 
         }
-      
 
-      
+        public FilePathResult GetFileFromDisk(int documenid)
+        {
+            string fileName = db.Documents.Where(z => z.DocumentId == documenid).Select(x => x.FileName).SingleOrDefault();
+            return File("~/Files", MediaTypeNames.Text.Plain, fileName);
+        }
+
+
 
         // GET: Documents/Details/5
         public ActionResult Details(int? id)
