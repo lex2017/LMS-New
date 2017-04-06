@@ -34,6 +34,10 @@ namespace LexiconLMS.Controllers
                 ViewBag.courseid = courseid;
                 ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
                 TempData["courseid"] = courseid;
+                TempData["modulid"] = modulid;
+                TempData["activityid"]= activityid ;
+
+
                 return View("Index", document.ToList());
 
             }
@@ -48,8 +52,8 @@ namespace LexiconLMS.Controllers
                 TempData["modulid"] = modulid;
                 return View("Index", document.ToList());
             }
-            else
-            {
+            else if (courseid != null && modulid != null && activityid != null)
+            { 
                 IQueryable<Document> document = db.Documents.Where(z => z.CourseId == courseid && z.ModuleId == modulid || z.ActivityId == activityid);
                 ViewBag.courseid = courseid;
                 ViewBag.modulid = modulid;
@@ -66,10 +70,12 @@ namespace LexiconLMS.Controllers
                 return View("Index", document.ToList());
 
             }
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Upload([Bind(Include = "DocumentId")] Document document, HttpPostedFileBase file)
+        public ActionResult Upload([Bind(Include = "DocumentId")] Document document, HttpPostedFileBase file, int? modulid, int? courseid)
+        //public ActionResult Upload([Bind(Include = "DocumentId")] Document document, HttpPostedFileBase file)
         {
             try
             {
@@ -85,13 +91,15 @@ namespace LexiconLMS.Controllers
                     document.FileName =fileName;
                     document.FilePath = path;
                     document.CourseId = Convert.ToInt32(TempData["courseid"]);
-                    if (TempData["modulid"] != null)
+                    var ModuleIdval = TempData["modulid"];
+                    if (ModuleIdval != null)
                     {
-                        document.ModuleId = Convert.ToInt32(TempData["modulid"]);
+                        document.ModuleId =(int)ModuleIdval;
                     }
-                    if (TempData["activityid"] != null)
+                    var ActivityIdval = TempData["activityid"];
+                    if (ActivityIdval != null)
                     {
-                        document.ActivityId = Convert.ToInt32(TempData["activityid"]);
+                        document.ActivityId = (int)ActivityIdval;
                     }
                     db.Documents.Add(document);
                     db.SaveChanges();

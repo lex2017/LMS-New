@@ -51,7 +51,8 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    @Html.ActionLink("Aktiviteter", "ActivityFilter", "Students", new { id = item.ModuleID }, null)
+                    @Html.ActionLink("Aktiviteter", "ActivityFilter", "Students", new { id = item.ModuleID }, null) |
+                    @Html.ActionLink("Dokument", "DocumentFilter", "documents", new { courseid = item.ModuleID }, null)  
                 </td>
 
             </tr>

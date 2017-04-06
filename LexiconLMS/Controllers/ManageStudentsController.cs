@@ -10,6 +10,8 @@ using LexiconLMS.Models;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
+using System.Net.Mime;
 
 namespace LexiconLMS.Controllers
 {
@@ -35,6 +37,100 @@ namespace LexiconLMS.Controllers
 
             return View(students.ToList());
         }
+
+        public ActionResult DocumentFilter(int? courseid, int? modulid, int? activityid)
+        {
+            if (courseid != null && modulid == null && activityid == null)
+            {
+                IQueryable<Document> document = db.Documents.Where(x => x.CourseId == courseid);
+                ViewBag.courseid = courseid;
+                ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+                TempData["courseid"] = courseid;
+                return View("Index", document.ToList());
+
+            }
+            else if (courseid != null && modulid != null && activityid == null)
+            {
+                IQueryable<Document> document = db.Documents.Where(z => z.CourseId == courseid && z.ModuleId == modulid);
+                ViewBag.courseid = courseid;
+                ViewBag.modulid = modulid;
+                ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+                ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
+                TempData["courseid"] = courseid;
+                TempData["modulid"] = modulid;
+                return View("Index", document.ToList());
+            }
+            else
+            {
+                IQueryable<Document> document = db.Documents.Where(z => z.CourseId == courseid && z.ModuleId == modulid || z.ActivityId == activityid);
+                ViewBag.courseid = courseid;
+                ViewBag.modulid = modulid;
+                ViewBag.activityid = activityid;
+                ViewBag.activity = activityid; // For show in view
+                ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+                ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
+                ViewBag.activityname = db.Activities.Where(v => v.ActivityId == activityid).Select(x => x.Name).SingleOrDefault().ToString();
+
+                TempData["courseid"] = courseid;
+                TempData["modulid"] = modulid;
+                TempData["activityid"] = activityid;
+
+                return View("Index", document.ToList());
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Upload([Bind(Include = "DocumentId")] Document document, HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    document.UserId = User.Identity.GetUserId();
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Files"), fileName);
+                    file.SaveAs(path);
+                    document.DeadlineDate = DateTime.Now;
+                    document.TimeStamp = DateTime.Now;
+                    //document.FileName = document.DocumentId + " " + fileName;
+                    document.FileName = fileName;
+                    document.FilePath = path;
+                    document.CourseId = Convert.ToInt32(TempData["courseid"]);
+                    if (TempData["modulid"] != null)
+                    {
+                        document.ModuleId = Convert.ToInt32(TempData["modulid"]);
+                    }
+                    if (TempData["activityid"] != null)
+                    {
+                        document.ActivityId = Convert.ToInt32(TempData["activityid"]);
+                    }
+                    db.Documents.Add(document);
+                    db.SaveChanges();
+                    return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"], activityid = TempData["activityid"] });
+                }
+                ViewBag.Message = "Upload successful";
+                return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"], activityid = TempData["activityid"] });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                ViewBag.Message = "Upload failed";
+                return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"], activityid = TempData["activityid"] });
+                //  return RedirectToAction("Index");
+            }
+
+        }
+
+        public FilePathResult GetFileFromDisk(int documenid)
+        {
+            string fileName = db.Documents.Where(z => z.DocumentId == documenid).Select(x => x.FileName).SingleOrDefault();
+            //int lengthToRemove = documenid.ToString().Length;
+            //fileName = fileName.Remove(0,lengthToRemove).Trim();
+            return File("~/Files/" + fileName, MediaTypeNames.Text.Plain, fileName);
+        }
+
+
 
         // GET: Students/Details/5
         public ActionResult Details(string id)
