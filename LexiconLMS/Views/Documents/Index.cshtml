@@ -2,9 +2,20 @@
 @{
     ViewBag.Title = "Dokument";
 }
-@if (ViewBag.coursename != null)
+
+@if (ViewBag.courseid !=null && ViewBag.modulname != null && ViewBag.activityname != null)
 {
-    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> Dokument</b></h4>
+    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> @Html.ActionLink("Modul", "ModuleFilter", "Modules", new { courseid = ViewBag.courseid }, null): <span class="alert-info">@ViewBag.modulname</span> @Html.ActionLink("Activity", "ActivityFilter", "Activities", new { modulid = ViewBag.modulid }, null): <span class="alert-info">@ViewBag.activityname</span><b> <span class="glyphicon glyphicon-arrow-right"></span> Dokument</b></h4>
+
+}
+else if (ViewBag.modulname == null && ViewBag.activityname == null)
+{
+    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span>Dokument</b></h4>
+}
+
+else if (ViewBag.courseid != null && ViewBag.modulname != null && ViewBag.activityname == null)
+{
+    <h4><span class="glyphicon glyphicon-arrow-up"></span>@Html.ActionLink("Kurs", "Index", "Courses"): <span class="alert-info">@ViewBag.coursename</span> <b> <span class="glyphicon glyphicon-arrow-right"></span> @Html.ActionLink("Modul", "ModuleFilter", "Modules", new { courseid = ViewBag.courseid }, null): <span class="alert-info">@ViewBag.modulname</span> Dokument</b></h4>
 }
     @*@if (ViewBag.modulname != null)
         {
@@ -13,27 +24,27 @@
 
 
     @using (Html.BeginForm("Upload", "Documents", FormMethod.Post,
-                                                            new { enctype = "multipart/form-data", courseid = ViewBag.courseid, modulid = ViewBag.modulid }))
+                   new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-group">
-            <fieldset>
-                Upload a file
-                <div class="editor-field">
-                    @Html.TextBox("file", "", new { type = "file" })
-                </div>
-                <div class="editor-field">
-                    <input type="submit" value="Upload" />
-                </div>
-            </fieldset>
+            <span class="btn btn-default btn-file">
+                @Html.TextBox("file", "", new { type = "file" })
+            </span>
+            
+                <button class="btn btn-default" type="submit" >
+                  Upload
+                </button>
+                
+          
         </div>
     }
     <table class="table table-striped">
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.DocumentId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.FileName)
             </th>
@@ -44,16 +55,16 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.DocumentId)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.FileName)
                 </td>
 
 
                 <td>
-                    @Html.ActionLink("Download", "GetFileFromDisk", new { documenid = item.DocumentId })
+                    @Html.ActionLink("Ladda ner", "GetFileFromDisk", new { documenid = item.DocumentId })
 
                 </td>
                 <td>

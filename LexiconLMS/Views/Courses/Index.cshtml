@@ -2,10 +2,11 @@
 @{
     ViewBag.Title = "Kurser";
 }
-
+<h3>@ViewBag.Title</h3>
 @if (Request.IsAuthenticated)
 {
     <p>
+      
         @Html.ActionLink("Lägg till", "Create")
     </p>
 
@@ -65,7 +66,8 @@
                         @Html.ActionLink("Moduler", "ModuleFilter", "Modules", new { courseid = item.CourseID }, null) |
                         @Html.ActionLink("Ändra", "Edit", new { id = item.CourseID }) |
                         @* @Html.ActionLink("Detaljer", "Details", new { id = item.CourseID }) |*@
-                        @Html.ActionLink("Dokument", "DocumentFilter", "documents", new { courseid = item.CourseID }, null) |
+                        @*@Html.ActionLink("Dokument", "DocumentFilter", "documents", new { courseid = item.CourseID }, null) |*@
+                        @Html.ActionLink("Dokument", "DocumentFilterRoot", "documents", new { courseid = item.CourseID, modulid= ViewBag.modulid, activityid= ViewBag.activityid }, null) |
                         @Html.ActionLink("Ta bort", "Delete", new { id = item.CourseID })
 
                     </td>
