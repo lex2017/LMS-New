@@ -1,22 +1,30 @@
 ﻿@model LexiconLMS.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "Ta bort";
+    ViewBag.Title = "Elev - Ta bort";
 }
 
 <h2>@ViewBag.Title</h2>
 
-<h3>Är du säker på att du vill ta bort Studenten?</h3>
+<h3>Är du säker på att du vill ta bort eleven?</h3>
 <div>
    
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.UserName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.UserName)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
         </dd>
       
         <dt>
@@ -34,18 +42,9 @@
         <dd>
             @Html.DisplayFor(model => model.LastName)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
        
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            @Html.LabelFor(model => model.PhoneNumber, "Telefonnummer")
         </dt>
 
         <dd>
@@ -68,7 +67,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Ta bort" class="btn btn-default" /> |
-            @Html.ActionLink("Tillbaka till lista", "Index")
+            @Html.ActionLink("Tillbaka till listan", "Index")
         </div>
     }
 </div>

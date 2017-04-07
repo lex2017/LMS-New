@@ -1,11 +1,11 @@
 ﻿﻿@model LexiconLMS.Models.Activity
 @{
-    ViewBag.Title = "Ta bort";
+    ViewBag.Title = "Aktivitet - Ta bort";
 }
 <h2>@ViewBag.Title</h2>
-<h3>Är du säker på att du vill ta bort Aktivitetet?</h3>
+<h3>Är du säker på att du vill ta bort aktiviteten?</h3>
 <div>
-    <h4>Activitet</h4>
+    @*<h4>Aktivitet</h4>*@
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -36,7 +36,7 @@
             @Html.DisplayNameFor(model => model.ModuleId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ModuleId)
+            @Html.DisplayFor(model => model.Module.Name)
         </dd>
     </dl>
     @using (Html.BeginForm())

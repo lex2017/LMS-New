@@ -88,6 +88,7 @@ namespace LexiconLMS.Controllers
                 //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
                 db.Activities.Add(activity);
                 db.SaveChanges();
+                TempData["successmessage"] = "Aktiviteten " + activity.Name + " har lagts till!";
                 //return RedirectToAction("Index");
                 return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
                 
@@ -135,6 +136,7 @@ namespace LexiconLMS.Controllers
                 activity.ModuleId = db.Activities.AsNoTracking().FirstOrDefault(z => z.ActivityId == activity.ActivityId).ModuleId;
                 ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
                 db.Entry(activity).State = EntityState.Modified;
+                TempData["successmessage"] = "Aktiviteten " + activity.Name + " har ändrats!";
                 db.SaveChanges();
                 return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
                 //return RedirectToAction("Index");
@@ -165,6 +167,7 @@ namespace LexiconLMS.Controllers
             Activity activity = db.Activities.Find(id);
             db.Activities.Remove(activity);
             db.SaveChanges();
+            TempData["successmessage"] = "Aktiviteten " + activity.Name + " har tagits bort!";
             return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
             //return RedirectToAction("Index");
         }

@@ -68,7 +68,16 @@
                 </li>
             }
 
-        </ol>*@
+        </ol>
+        <p>
+            @if (TempData["successmessage"] != null)
+            {
+                <div class="alert alert-success fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    @TempData["successmessage"]
+                </div>
+            }
+        </p>
         @RenderBody()
         <hr />
         <footer class="modal-footer">

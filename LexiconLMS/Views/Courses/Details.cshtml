@@ -1,13 +1,13 @@
 ﻿@model LexiconLMS.Models.Course
 
 @{
-    ViewBag.Title = "Detaljer";
+    ViewBag.Title = "Kurs - Detaljer";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Kurs</h4>
+    @*<h4>Kurs</h4>*@
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -46,5 +46,5 @@
 </div>
 <p>
     @Html.ActionLink("Ändra", "Edit", new { id = Model.CourseID }) |
-    @Html.ActionLink("Tillbaka till lista", "Index")
+    @Html.ActionLink("Tillbaka till listan", "Index")
 </p>

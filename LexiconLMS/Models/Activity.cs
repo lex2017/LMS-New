@@ -22,7 +22,7 @@ namespace LexiconLMS.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [LessThanOrEqualTo("EndDate", ErrorMessage = "Startdatum kan inte vara efter sludatum")]
+        [LessThanOrEqualTo("EndDate", ErrorMessage = "Startdatum kan inte vara efter slutdatum")]
         [Display(Name = "Startdatum")]
         public DateTime StartDate { get; set; }
 
@@ -33,11 +33,14 @@ namespace LexiconLMS.Models
         [Display(Name = "Slutdatum")]
         public DateTime EndDate { get; set; }
 
+        [Display(Name = "Modul")]
         public int ModuleId { get; set; }
+        [Display(Name = "Modul")]
         public virtual Module Module { get; set; }
 
-
+        [Display(Name = "Aktivitetstyp")]
         public int? ActivityTypeID { get; set; }
+        [Display(Name = "Aktivitetstyp")]
         public virtual ActivityType ActivityType { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
 

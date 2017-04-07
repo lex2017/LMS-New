@@ -74,6 +74,8 @@ namespace LexiconLMS.Controllers
             {
                 db.Courses.Add(course);
                 db.SaveChanges();
+
+                TempData["successmessage"] = "Kursen " + course.Name + " har lagts till!";
                 return RedirectToAction("Index");
             }
 
@@ -108,6 +110,7 @@ namespace LexiconLMS.Controllers
             {
                 db.Entry(course).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["successmessage"] = "Kursen " + course.Name + " har ändrats!";
                 return RedirectToAction("Index");
             }
             return View(course);
@@ -138,6 +141,7 @@ namespace LexiconLMS.Controllers
             Course course = db.Courses.Find(id);
             db.Courses.Remove(course);
             db.SaveChanges();
+            TempData["successmessage"] = "Kursen " + course.Name + " har tagits bort!";
             return RedirectToAction("Index");
         }
        

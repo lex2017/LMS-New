@@ -1,6 +1,6 @@
 ﻿﻿@model LexiconLMS.Models.Activity
 @{
-    ViewBag.Title = "Ändra";
+    ViewBag.Title = "Aktivitet - Ändra";
 }
 <h2>@ViewBag.Title</h2>
 
@@ -9,7 +9,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Activitet</h4>
+        @*<h4>Activitet</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ActivityId)
@@ -63,7 +63,7 @@
     </div>
 }
 <div>
-    @Html.ActionLink("Tillbaka till Aktiviteter", "ActivityFilter", "Activities", new { modulid = ViewBag.modulid, coursename = ViewBag.coursename }, null)
+    @Html.ActionLink("Tillbaka till listan", "ActivityFilter", "Activities", new { modulid = ViewBag.modulid, coursename = ViewBag.coursename }, null)
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

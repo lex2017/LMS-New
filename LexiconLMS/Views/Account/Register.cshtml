@@ -1,6 +1,6 @@
 ﻿@model LexiconLMS.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Registrera";
+    ViewBag.Title = "Registrera ny användare";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -8,7 +8,7 @@
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Skapa ny konto</h4>
+    @*<h4>Skapa nytt konto</h4>*@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">

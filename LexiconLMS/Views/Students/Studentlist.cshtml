@@ -5,7 +5,7 @@
 }
 
 <h3>Kurs @ViewBag.coursename, @ViewBag.coursedescription (@ViewBag.coursestartdate.ToString("yyy-MM-dd") - @ViewBag.courseenddate.ToString("yyy-MM-dd"))</h3>
-@*<h3>@ViewBag.Title i  kursen @ViewBag.coursename</h3>*@
+
 <h4>@ViewBag.Title</h4>
 
 <table class="table table-hover sortable sortable">
@@ -21,12 +21,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                Telefonnummer
             </th>
-
-    </tr>
+        </tr>
     </thead>
 
     @foreach (var item in Model)
