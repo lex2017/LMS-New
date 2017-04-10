@@ -82,13 +82,25 @@ namespace LexiconLMS.Controllers
             
             if (ModelState.IsValid)
             {
+                
+                DateTime startdate = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.StartDate).SingleOrDefault();
+                DateTime enddate = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.EndDate).SingleOrDefault();
+                if (activity.StartDate >= startdate && activity.EndDate <= enddate)
+                {
 
-                activity.ModuleId = modulid;
-                ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
-                //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
-                db.Activities.Add(activity);
-                db.SaveChanges();
-                TempData["successmessage"] = "Aktiviteten " + activity.Name + " har lagts till!";
+                    activity.ModuleId = modulid;
+                    ViewBag.modulname = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.Name).SingleOrDefault().ToString();
+                    //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+                    db.Activities.Add(activity);
+                    db.SaveChanges();
+                    TempData["successmessage"] = "Aktiviteten " + activity.Name + " har lagts till!";
+                }
+                else
+                {
+                    //ModelState.AddModelError("Datum:", " Datum ligger utanför start datum eller slutdatum");
+                    TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    return RedirectToAction("Create", "Activities", new { modulid = activity.ModuleId });
+                }
                 //return RedirectToAction("Index");
                 return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
                 
@@ -128,18 +140,26 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId,ActivityTypeID")] Activity activity)
+        public ActionResult Edit([Bind(Include = "ActivityId,Name,Description,StartDate,EndDate,ModuleId,ActivityTypeID")] Activity activity,int modulid)
         {
             if (ModelState.IsValid)
             {
-                
-                activity.ModuleId = db.Activities.AsNoTracking().FirstOrDefault(z => z.ActivityId == activity.ActivityId).ModuleId;
-                ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
-                db.Entry(activity).State = EntityState.Modified;
-                TempData["successmessage"] = "Aktiviteten " + activity.Name + " har ändrats!";
-                db.SaveChanges();
-                return RedirectToAction("ActivityFilter", new { modulid = activity.ModuleId });
-                //return RedirectToAction("Index");
+                DateTime startdate = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.StartDate).SingleOrDefault();
+                DateTime enddate = db.Modules.Where(v => v.ModuleID == modulid).Select(x => x.EndDate).SingleOrDefault();
+                if (activity.StartDate >= startdate && activity.EndDate <= enddate)
+                {
+                    activity.ModuleId = db.Activities.AsNoTracking().FirstOrDefault(z => z.ActivityId == activity.ActivityId).ModuleId;
+                    ViewBag.ActivityType = new SelectList(db.ActivityTypes, "ActivityTypeID", "TypeName");
+                    db.Entry(activity).State = EntityState.Modified;
+                    TempData["successmessage"] = "Aktiviteten " + activity.Name + " har ändrats!";
+                    db.SaveChanges();
+                }
+                else
+                {
+                    TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    return RedirectToAction("Edit", "Activities", new { modulid = activity.ModuleId });
+                }
+
             }
             return View(activity);
         }

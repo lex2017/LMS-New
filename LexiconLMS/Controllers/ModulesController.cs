@@ -84,10 +84,21 @@ namespace LexiconLMS.Controllers
                 ViewBag.coursename = coursename;
                 ViewBag.courseid = courseid;
                 module.CourseId = courseid;
-                //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
+                DateTime startdate = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.StartDate).SingleOrDefault();
+                DateTime enddate = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.EndDate).SingleOrDefault();
+                if (module.StartDate >= startdate && module.EndDate <= enddate)
+                {
                 db.Modules.Add(module);
                 db.SaveChanges();
                 TempData["successmessage"] = "Modulen " + module.Name + " har lagts till!";
+                }
+                else
+                {
+                    //ModelState.AddModelError("Datum:", " Datum ligger utanför start datum eller slutdatum");
+                    TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    return RedirectToAction("Create","Modules", new { courseid = module.CourseId });
+                }
+                //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
                 //return RedirectToAction("Index");
                 return RedirectToAction("ModuleFilter", new { courseid = module.CourseId });
             }
@@ -122,10 +133,24 @@ namespace LexiconLMS.Controllers
             if (ModelState.IsValid)
             {
                 module.CourseId = courseid;
-                db.Entry(module).State = EntityState.Modified;
-                db.SaveChanges();
 
-                TempData["successmessage"] = "Modulen " + module.Name + " har ändrats!";
+                DateTime startdate = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.StartDate).SingleOrDefault();
+                DateTime enddate = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.EndDate).SingleOrDefault();
+                if (module.StartDate >= startdate && module.EndDate <= enddate)
+                {
+                    
+                    TempData["successmessage"] = "Modulen " + module.Name + " har ändrats!";
+                    db.Entry(module).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                }
+                else
+                {
+                    //ModelState.AddModelError("Datum:", " Datum ligger utanför start datum eller slutdatum");
+                    TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    return RedirectToAction("Edit", "Modules", new { courseid = module.CourseId });
+                }
+
                 return RedirectToAction("ModuleFilter", new { courseid = module.CourseId });
                 //return RedirectToAction("Index");
             }

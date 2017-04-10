@@ -100,7 +100,7 @@ namespace LexiconLMS.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Ogiltigt lösenord eller användarenamn");
                     return View(model);
             }
         }
