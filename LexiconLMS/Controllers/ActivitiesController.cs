@@ -98,7 +98,8 @@ namespace LexiconLMS.Controllers
                 else
                 {
                     //ModelState.AddModelError("Datum:", " Datum ligger utanför start datum eller slutdatum");
-                    TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    //  TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    TempData["errormessage"] = "Datum ligger utanför startdatum eller slutdatum för kursen (" + startdate.ToString("yyy-MM-dd") + " - " + enddate.ToString("yyy-MM-dd") + ")";
                     return RedirectToAction("Create", "Activities", new { modulid = activity.ModuleId });
                 }
                 //return RedirectToAction("Index");
@@ -156,7 +157,8 @@ namespace LexiconLMS.Controllers
                 }
                 else
                 {
-                    TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    //TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    TempData["errormessage"] = "Datum ligger utanför startdatum eller slutdatum för kursen (" + startdate.ToString("yyy-MM-dd") + " - " + enddate.ToString("yyy-MM-dd") + ")";
                     return RedirectToAction("Edit", "Activities", new { modulid = activity.ModuleId });
                 }
 

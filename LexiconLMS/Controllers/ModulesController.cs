@@ -38,15 +38,10 @@ namespace LexiconLMS.Controllers
         {
             IQueryable<Module> module = db.Modules.Where(x => x.CourseId == courseid);
             ViewBag.courseid = courseid;
-            if (module.Count() !=0)
-            {
-            //ViewBag.modulid = id;
-            //ViewBag.modulname = db.Modules.Where(v => v.CourseId == id).Select(x => x.Name).SingleOrDefault().ToString();
-            }
             ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
-
             return View("Index", module.ToList() );
         }
+
         // GET: Modules/Details/5
         public ActionResult Details(int? id)
         {
@@ -95,7 +90,8 @@ namespace LexiconLMS.Controllers
                 else
                 {
                     //ModelState.AddModelError("Datum:", " Datum ligger utanför start datum eller slutdatum");
-                    TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    //TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    TempData["errormessage"] = "Datum ligger utanför startdatum eller slutdatum för kursen (" + startdate.ToString("yyy-MM-dd") + " - " + enddate.ToString("yyy-MM-dd") + ")";
                     return RedirectToAction("Create","Modules", new { courseid = module.CourseId });
                 }
                 //ViewBag.coursename = db.Courses.Where(v => v.CourseID == courseid).Select(x => x.Name).SingleOrDefault().ToString();
@@ -147,7 +143,8 @@ namespace LexiconLMS.Controllers
                 else
                 {
                     //ModelState.AddModelError("Datum:", " Datum ligger utanför start datum eller slutdatum");
-                    TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    //TempData["successmessage"] = " Datum ligger utanför start datum eller slutdatum";
+                    TempData["errormessage"] = "Datum ligger utanför startdatum eller slutdatum för kursen (" + startdate.ToString("yyy-MM-dd") + " - " + enddate.ToString("yyy-MM-dd") + ")";
                     return RedirectToAction("Edit", "Modules", new { courseid = module.CourseId });
                 }
 

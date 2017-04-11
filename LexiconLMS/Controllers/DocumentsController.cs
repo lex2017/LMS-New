@@ -134,7 +134,6 @@ namespace LexiconLMS.Controllers
                     return RedirectToAction("DocumentFilterRoot", new { courseid = TempData["courseid"] });
                 }
                 return RedirectToAction("DocumentFilter", new { courseid = TempData["courseid"], modulid = TempData["modulid"], activityid = TempData["activityid"] });
-                //  return RedirectToAction("Index");
             }
 
         }
